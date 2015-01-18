@@ -1,4 +1,4 @@
-package Classes;
+package com.uclan.ashleymorris.goeat.Classes;
 
 import android.util.Log;
 
@@ -106,6 +106,8 @@ public class JSONParser {
      */
     public JSONObject makeHttpRequest(String url, String method, List<NameValuePair> params){
 
+
+
         try{
             if(method == "POST"){
                 //request is post
@@ -148,7 +150,8 @@ public class JSONParser {
         }
 
 
-        //Use buffered reader to read the InputStream into a string.
+
+          //Use buffered reader to read the InputStream into a string.
         try{
             BufferedReader reader = new BufferedReader(new InputStreamReader
                     (inputStream, "iso-8859-1"), 8);
