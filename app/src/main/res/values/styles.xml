@@ -3,6 +3,17 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:actionBarStyle">@style/ActionBarTheme</item>
+    </style>
+
+    <style name="ActionBarTheme" parent="android:Widget.ActionBar">
+        <item name="android:background">@color/BackgroundBlue</item>
+        <item name="android:titleTextStyle">@style/ActionBarFont</item>
+    </style>
+
+    <style name="ActionBarFont">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
 </resources>

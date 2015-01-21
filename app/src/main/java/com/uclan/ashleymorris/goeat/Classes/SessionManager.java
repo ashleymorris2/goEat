@@ -3,8 +3,6 @@ package com.uclan.ashleymorris.goeat.Classes;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.uclan.ashleymorris.goeat.Activities.StartActivity;
-
 /**
  * Created by Ashley Morris on 17/01/2015.
  */
@@ -32,10 +30,36 @@ public class SessionManager {
      *
      * @param username Username of the logged in user.
      */
-    public void createNewUserSession(String username){
-        editor.putString(StaticVariables.getPrefLoginName(), username);
+    public void saveUserDetails(String username){
+        editor.putString(StaticVariables.getPrefUserName(), username);
         editor.putBoolean(StaticVariables.getPrefLoginStatus(), true);
         editor.commit();
+    }
+
+
+    /**
+     * Stores a user session. When they check into a restaurant. This is in case they close the app
+     * while they are still showing on the remote system.
+     *
+     * @param ID The unique id that identifies the restaurant that the user ic checking into.
+     * @param restaurantName The restaurant that the user has checked in to.
+     * @param tableNumber The table number that the user is on.
+     */
+    public void createNewUserSession(int ID, String restaurantName, String tableNumber){
+
+        editor.putInt(StaticVariables.getPrefRestaurantId(), ID);
+        editor.putString(StaticVariables.getPrefRestaurantName(),restaurantName);
+        editor.putString(StaticVariables.getPrefTableNumber(), tableNumber);
+
+        editor.putBoolean(StaticVariables.getPrefCheckinStatus(), true);
+        editor.commit();
+    }
+
+    /**
+     * @return A boolean representing wwhetherthe user has checked into a restaurant or not.
+     */
+    public boolean isUserCheckedIn(){
+        return this.sharedPreferences.getBoolean(StaticVariables.getPrefCheckinStatus(), false);
     }
 
 
@@ -44,6 +68,10 @@ public class SessionManager {
      */
     public boolean isUserLoggedIn(){
         return this.sharedPreferences.getBoolean(StaticVariables.getPrefLoginStatus(), false);
+    }
+
+    public String getUserName(){
+        return this.sharedPreferences.getString(StaticVariables.getPrefUserName(), null);
     }
 
 

@@ -149,8 +149,6 @@ public class JSONParser {
             e.printStackTrace();
         }
 
-
-
           //Use buffered reader to read the InputStream into a string.
         try{
             BufferedReader reader = new BufferedReader(new InputStreamReader

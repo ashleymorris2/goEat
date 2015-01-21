@@ -14,11 +14,11 @@ public class QRParser {
 
     /**
      *
-     * @param inputString Accepts strings in the format (restaurant::name::table::number).
+     * @param inputString Accepts strings in the format (ID::number::restaurant::name::table::number).
      */
     public QRParser(String inputString) {
-        parsedData = new HashMap<String, String>();
         this.inputString = inputString;
+        parsedData = new HashMap<String, String>();
     }
 
     /**
@@ -31,11 +31,16 @@ public class QRParser {
         String [] tokens = inputString.split(delimiter);
 
         try {
-            String restaurant = tokens[0];
-            String restaurantName = tokens[1];
-            String table = tokens[2];
-            String tableNumber = tokens[3];
+            String id = tokens[0];
+            String restaurantID = tokens[1];
 
+            String restaurant = tokens[2];
+            String restaurantName = tokens[3];
+
+            String table = tokens[4];
+            String tableNumber = tokens[5];
+
+            parsedData.put(id, restaurantID);
             parsedData.put(restaurant, restaurantName);
             parsedData.put(table, tableNumber);
 

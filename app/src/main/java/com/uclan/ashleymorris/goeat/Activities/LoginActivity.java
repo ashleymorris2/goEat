@@ -2,6 +2,7 @@ package com.uclan.ashleymorris.goeat.Activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -122,10 +123,7 @@ public class LoginActivity extends Activity {
 
                 if (successCode == 1) {
                     //Save the user data:
-                   sessionManager.createNewUserSession(loginName);
-
-                    //Navigate to new screen:
-
+                   sessionManager.saveUserDetails(loginName);
                 }
 
             } catch (JSONException e) {
@@ -157,6 +155,15 @@ public class LoginActivity extends Activity {
                     if (successCode == 1) {
                         //Login has been successful
                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+
+                        //Navigate to new screen:
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
+                        //Clears the backstack before starting a new activity.
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+
+                        finish();
 
                     } else {
                         //Unsuccessful login
