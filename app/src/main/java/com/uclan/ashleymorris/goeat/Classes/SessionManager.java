@@ -45,11 +45,11 @@ public class SessionManager {
      * @param restaurantName The restaurant that the user has checked in to.
      * @param tableNumber The table number that the user is on.
      */
-    public void createNewUserSession(int ID, String restaurantName, String tableNumber){
+    public void createNewUserSession(int ID, String restaurantName, int tableNumber){
 
         editor.putInt(StaticVariables.getPrefRestaurantId(), ID);
         editor.putString(StaticVariables.getPrefRestaurantName(),restaurantName);
-        editor.putString(StaticVariables.getPrefTableNumber(), tableNumber);
+        editor.putInt(StaticVariables.getPrefTableNumber(), tableNumber);
 
         editor.putBoolean(StaticVariables.getPrefCheckinStatus(), true);
         editor.commit();
