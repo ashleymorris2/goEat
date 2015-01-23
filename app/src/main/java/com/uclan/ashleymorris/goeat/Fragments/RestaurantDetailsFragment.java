@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.uclan.ashleymorris.goeat.R;
 
@@ -16,6 +17,7 @@ import com.uclan.ashleymorris.goeat.R;
  */
 public class RestaurantDetailsFragment extends Fragment {
 
+   private TextView textName, textPhoneNum, textOpenTime, textCloseTime, textAddress;
 
     public RestaurantDetailsFragment() {
         // Required empty public constructor

@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.uclan.ashleymorris.goeat.Activities.MainActivity"
-    android:background="@drawable/card_background">
+    tools:context="com.uclan.ashleymorris.goeat.Activities.MainActivity">
 
 
     <FrameLayout

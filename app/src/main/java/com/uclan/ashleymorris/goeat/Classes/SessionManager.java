@@ -56,7 +56,7 @@ public class SessionManager {
     }
 
     /**
-     * @return A boolean representing wwhetherthe user has checked into a restaurant or not.
+     * @return A boolean representing whether the user has checked into a restaurant or not.
      */
     public boolean isUserCheckedIn(){
         return this.sharedPreferences.getBoolean(StaticVariables.getPrefCheckinStatus(), false);
@@ -72,6 +72,15 @@ public class SessionManager {
 
     public String getUserName(){
         return this.sharedPreferences.getString(StaticVariables.getPrefUserName(), null);
+    }
+
+    public void checkOutUser(){
+        editor.remove(StaticVariables.getPrefCheckinStatus());
+        editor.remove(StaticVariables.getPrefTableNumber());
+        editor.remove(StaticVariables.getPrefRestaurantId());
+        editor.remove(StaticVariables.getPrefRestaurantName());
+
+        editor.commit();
     }
 
 

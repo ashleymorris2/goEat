@@ -40,6 +40,10 @@
             android:name=".Activities.LoginRegisterActivity"
             android:label="@string/title_activity_login_register" >
         </activity>
+        <activity
+            android:name=".Activities.MenuActivity"
+            android:label="@string/title_activity_menu" >
+        </activity>
     </application>
 
 </manifest>
