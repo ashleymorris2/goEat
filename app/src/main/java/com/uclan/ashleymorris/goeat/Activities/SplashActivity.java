@@ -18,7 +18,6 @@ public class SplashActivity extends Activity {
 
     SessionManager sessionManager;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

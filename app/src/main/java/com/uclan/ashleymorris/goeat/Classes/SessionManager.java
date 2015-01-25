@@ -14,7 +14,6 @@ public class SessionManager {
 
 
     /**
-     *
      * @param context The calling application context.
      */
     public SessionManager(Context context) {
@@ -30,7 +29,7 @@ public class SessionManager {
      *
      * @param username Username of the logged in user.
      */
-    public void saveUserDetails(String username){
+    public void saveUserDetails(String username) {
         editor.putString(StaticVariables.getPrefUserName(), username);
         editor.putBoolean(StaticVariables.getPrefLoginStatus(), true);
         editor.commit();
@@ -41,14 +40,14 @@ public class SessionManager {
      * Stores a user session. When they check into a restaurant. This is in case they close the app
      * while they are still showing on the remote system.
      *
-     * @param ID The unique id that identifies the restaurant that the user ic checking into.
+     * @param ID             The unique id that identifies the restaurant that the user ic checking into.
      * @param restaurantName The restaurant that the user has checked in to.
-     * @param tableNumber The table number that the user is on.
+     * @param tableNumber    The table number that the user is on.
      */
-    public void createNewUserSession(int ID, String restaurantName, int tableNumber){
+    public void createNewUserSession(int ID, String restaurantName, int tableNumber) {
 
         editor.putInt(StaticVariables.getPrefRestaurantId(), ID);
-        editor.putString(StaticVariables.getPrefRestaurantName(),restaurantName);
+        editor.putString(StaticVariables.getPrefRestaurantName(), restaurantName);
         editor.putInt(StaticVariables.getPrefTableNumber(), tableNumber);
 
         editor.putBoolean(StaticVariables.getPrefCheckinStatus(), true);
@@ -58,23 +57,26 @@ public class SessionManager {
     /**
      * @return A boolean representing whether the user has checked into a restaurant or not.
      */
-    public boolean isUserCheckedIn(){
+    public boolean isUserCheckedIn() {
         return this.sharedPreferences.getBoolean(StaticVariables.getPrefCheckinStatus(), false);
     }
-
 
     /**
      * @return A boolean. True if logged in, false if not.
      */
-    public boolean isUserLoggedIn(){
+    public boolean isUserLoggedIn() {
         return this.sharedPreferences.getBoolean(StaticVariables.getPrefLoginStatus(), false);
     }
 
-    public String getUserName(){
+    public String getUserName() {
         return this.sharedPreferences.getString(StaticVariables.getPrefUserName(), null);
     }
 
-    public void checkOutUser(){
+    public int getTableNum() {
+        return this.sharedPreferences.getInt(StaticVariables.getPrefTableNumber(), 0);
+    }
+
+    public void checkOutUser() {
         editor.remove(StaticVariables.getPrefCheckinStatus());
         editor.remove(StaticVariables.getPrefTableNumber());
         editor.remove(StaticVariables.getPrefRestaurantId());
@@ -84,8 +86,21 @@ public class SessionManager {
     }
 
 
-    public void logOutUser(){
+    public void logOutUser() {
         editor.clear();
         editor.commit();
     }
+
+    /**
+     * System preferences:
+     */
+    public void setServerIp(String ipAddress) {
+        editor.putString(StaticVariables.getPrefIp(),"http://"+ipAddress);
+        editor.commit();
+    }
+
+    public String getServerIp(){
+        return this.sharedPreferences.getString(StaticVariables.getPrefIp(), "http://192.168.0.24");
+    }
+
 }

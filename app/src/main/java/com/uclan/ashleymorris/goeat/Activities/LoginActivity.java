@@ -39,10 +39,9 @@ public class LoginActivity extends Activity {
     JSONParser jsonParser = new JSONParser();
     SessionManager sessionManager;
 
-
     //Home IP address, change for when at university:
     private static final String LOGIN_URL =
-            "http://192.168.0.24/restaurant-service/scripts/login-script.php";
+            "/restaurant-service/scripts/login-script.php";
 
     //Corresponds to the JSON responses array element tags.
     private static final String TAG_SUCCESS = "success";
@@ -112,12 +111,18 @@ public class LoginActivity extends Activity {
             String loginName = username.getText().toString();
             String loginPassword = password.getText().toString();
 
+            //Concatenate the stored ip address that the url together.
+            String url = sessionManager.getServerIp()+LOGIN_URL;
+
+            Log.d("URL: ", url);
+
             //Associative array containing the parameters to pass to the query:
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("username", loginName));
             params.add(new BasicNameValuePair("password", loginPassword));
 
-            JSONObject jsonResponse = jsonParser.makeHttpRequest(LOGIN_URL, HttpPost.METHOD_NAME, params);
+            JSONObject jsonResponse = jsonParser.makeHttpRequest(url, HttpPost.METHOD_NAME, params);
+
             try {
                 int successCode = jsonResponse.getInt(TAG_SUCCESS);
 

@@ -1,9 +1,12 @@
 package com.uclan.ashleymorris.goeat.Activities;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.uclan.ashleymorris.goeat.Fragments.MenuCategoriesFragment;
 import com.uclan.ashleymorris.goeat.R;
 
 public class MenuActivity extends Activity {
@@ -12,6 +15,9 @@ public class MenuActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        Fragment firstFragment = new MenuCategoriesFragment();
+        getFragmentManager().beginTransaction().add(R.id.main_content, firstFragment).commit();
     }
 
 

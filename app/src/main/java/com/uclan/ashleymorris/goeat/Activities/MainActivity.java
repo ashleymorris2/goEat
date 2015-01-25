@@ -25,7 +25,6 @@ import java.util.HashMap;
 
 public class MainActivity extends Activity {
 
-
     SessionManager session;
 
     @Override
@@ -35,7 +34,6 @@ public class MainActivity extends Activity {
 
         Fragment fragment = null;
         session = new SessionManager(this);
-
 
        if(!session.isUserCheckedIn()){
            //If the user isn't checked in show this screen:
@@ -47,7 +45,6 @@ public class MainActivity extends Activity {
        }
 
         getFragmentManager().beginTransaction().replace(R.id.main_content, fragment).commit();
-
     }
 
     @Override

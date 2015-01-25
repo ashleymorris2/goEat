@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,8 +50,8 @@ public class CheckInFragment extends Fragment {
     SessionManager session;
 
     //Home IP address, change for when at university:
-    private static final String LOGIN_URL =
-            "http://192.168.0.24/restaurant-service/system-scripts/checkin-checkout.php";
+    private static final String CHECKIN_URL =
+            "/restaurant-service/system-scripts/checkin-checkout.php";
 
     //Corresponds to the JSON responses array element tags.
     private static final String TAG_SUCCESS = "success";
@@ -128,6 +127,8 @@ public class CheckInFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
+                        //CheckInTask is an async task because it is performing network operations
+                        //(waiting for a result) this runs on a separate thread to the UI
                         CheckInTask checkInTask = new CheckInTask(id, table, restaurant);
                         checkInTask.execute();
 
@@ -179,27 +180,15 @@ public class CheckInFragment extends Fragment {
         @Override
         protected JSONObject doInBackground(Void... voids) {
 
+            String url = session.getServerIp()+CHECKIN_URL;
+
             //Associative array containing the parameters to pass to the query:
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("method", "check_in"));
             params.add(new BasicNameValuePair("customer_id", session.getUserName()));
             params.add(new BasicNameValuePair("table_number", Integer.toString(table)));
 
-            JSONObject jsonResponse = jsonParser.makeHttpRequest(LOGIN_URL, HttpPost.METHOD_NAME, params);
-            try {
-
-                int successCode = jsonResponse.getInt(TAG_SUCCESS);
-
-                if (successCode == 1) {
-                    //Save the user data:
-                    //Save this check in to the user session.
-                    session.createNewUserSession(id,restaurant,table);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            Log.d("Login attempt", jsonResponse.toString());
+            JSONObject jsonResponse = jsonParser.makeHttpRequest(url, HttpPost.METHOD_NAME, params);
 
             return jsonResponse;
         }
@@ -217,6 +206,11 @@ public class CheckInFragment extends Fragment {
                     String message = jsonResponse.getString(TAG_MESSAGE);
 
                     if (successCode == 1) {
+
+                        //Save the user data:
+                        //Save this checkin to the user session.
+                        session.createNewUserSession(id,restaurant,table);
+
                         //Login has been successful
                         Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
 

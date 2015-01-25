@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_above="@+id/item_text_category"
+                android:layout_alignParentStart="true"
+                android:background="@color/BackgroundBlue"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp">
+
+                </View>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Pizza"
+                android:id="@+id/item_text_category"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:textSize="22sp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

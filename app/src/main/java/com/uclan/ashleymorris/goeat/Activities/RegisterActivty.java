@@ -41,7 +41,7 @@ public class RegisterActivty extends Activity {
 
     //Home IP address, change for when at university:
     private static final String REGISTER_URL =
-            "http://192.168.0.24/restaurant-service/scripts/register-script.php";
+            "restaurant-service/scripts/register-script.php";
 
     //Corresponds to the JSON responses array element tags.
     private static final String TAG_SUCCESS = "success";
@@ -93,12 +93,13 @@ public class RegisterActivty extends Activity {
 
             String registerName = username.getText().toString();
             String registerPassword = password.getText().toString();
+            String url = sessionManager.getServerIp()+REGISTER_URL;
 
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("username", registerName));
             params.add(new BasicNameValuePair("password", registerPassword));
 
-            JSONObject jsonResponse = jsonParser.makeHttpRequest(REGISTER_URL,
+            JSONObject jsonResponse = jsonParser.makeHttpRequest(url,
                     HttpPost.METHOD_NAME, params);
 
             try {

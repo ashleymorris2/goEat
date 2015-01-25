@@ -17,6 +17,8 @@ public class StaticVariables {
     private static final String PREF_TABLE_NUMBER = "restaurant_table_number";
     private static final String PREF_CHECKIN_STATUS = "isCheckedIn";
 
+    private static final String PREF_IP = "ip_address";
+
 
     //==User session:==
     public static String getPrefName() {
@@ -50,4 +52,10 @@ public class StaticVariables {
         return PREF_CHECKIN_STATUS;
     }
 
+    //==System preferences:==
+
+
+    public static String getPrefIp() {
+        return PREF_IP;
+    }
 }
