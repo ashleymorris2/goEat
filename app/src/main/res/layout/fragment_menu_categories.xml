@@ -34,35 +34,6 @@
                 android:layout_alignParentBottom="true"
                 android:gravity="left|center" />
 
-            TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="22 Wardor Street, London, W12 6LU"
-                android:id="@+id/textView"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:layout_marginBottom="2dp" />
-
-            TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Tel: 02085578612"
-                android:id="@+id/text_phonnumber"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:layout_marginBottom="4dp"
-                android:singleLine="true" />
-
-            TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Open: 10:00am"
-                android:id="@+id/text_opentime"
-                android:textSize="14sp"
-                android:gravity="center" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -70,7 +41,9 @@
                 android:text="Closes at 10:00pm"
                 android:id="@+id/text_closetime"
                 android:textSize="14sp"
-                android:gravity="left|center" />
+                android:gravity="left|center"
+                />
+
         </LinearLayout>
     </RelativeLayout>
 
@@ -89,9 +62,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/listView_categories"
             android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
             android:divider="@android:color/transparent"
-            android:listSelector="@android:color/transparent"/>
+            android:listSelector="@android:color/transparent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 </RelativeLayout>
 

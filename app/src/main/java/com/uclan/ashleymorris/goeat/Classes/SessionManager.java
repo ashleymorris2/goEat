@@ -40,19 +40,28 @@ public class SessionManager {
      * Stores a user session. When they check into a restaurant. This is in case they close the app
      * while they are still showing on the remote system.
      *
-     * @param ID             The unique id that identifies the restaurant that the user ic checking into.
+     * @param ID             The unique id that identifies the restaurant that the user is checking into.
      * @param restaurantName The restaurant that the user has checked in to.
      * @param tableNumber    The table number that the user is on.
      */
-    public void createNewUserSession(int ID, String restaurantName, int tableNumber) {
+    public void createNewUserSession(int ID, String restaurantName, int tableNumber, String phoneNumber,
+                                     String openingTime, String closingTime, String address) {
 
+        //Session details
         editor.putInt(StaticVariables.getPrefRestaurantId(), ID);
         editor.putString(StaticVariables.getPrefRestaurantName(), restaurantName);
         editor.putInt(StaticVariables.getPrefTableNumber(), tableNumber);
 
+        //Restaurant details
+        editor.putString(StaticVariables.getPrefPhoneno(), phoneNumber);
+        editor.putString(StaticVariables.getPrefOpentime(), openingTime);
+        editor.putString(StaticVariables.getPrefClosetime(), closingTime);
+        editor.putString(StaticVariables.getPrefAddress(), address);
+
         editor.putBoolean(StaticVariables.getPrefCheckinStatus(), true);
         editor.commit();
     }
+
 
     /**
      * @return A boolean representing whether the user has checked into a restaurant or not.
@@ -61,6 +70,7 @@ public class SessionManager {
         return this.sharedPreferences.getBoolean(StaticVariables.getPrefCheckinStatus(), false);
     }
 
+
     /**
      * @return A boolean. True if logged in, false if not.
      */
@@ -68,19 +78,45 @@ public class SessionManager {
         return this.sharedPreferences.getBoolean(StaticVariables.getPrefLoginStatus(), false);
     }
 
+
     public String getUserName() {
         return this.sharedPreferences.getString(StaticVariables.getPrefUserName(), null);
+    }
+
+    public String getRestaurantName(){
+        return this.sharedPreferences.getString(StaticVariables.getPrefRestaurantName(), null);
+    }
+
+    public String getOpenTime(){
+        return this.sharedPreferences.getString(StaticVariables.getPrefOpentime(), null);
+    }
+
+     public String getCloseTime(){
+         return this.sharedPreferences.getString(StaticVariables.getPrefClosetime(), null);
+     }
+
+    public String getPhoneNo(){
+        return this.sharedPreferences.getString(StaticVariables.getPrefPhoneno(), null);
+    }
+
+    public String getAddress(){
+        return this.sharedPreferences.getString(StaticVariables.getPrefAddress(), null);
     }
 
     public int getTableNum() {
         return this.sharedPreferences.getInt(StaticVariables.getPrefTableNumber(), 0);
     }
 
+
     public void checkOutUser() {
         editor.remove(StaticVariables.getPrefCheckinStatus());
         editor.remove(StaticVariables.getPrefTableNumber());
         editor.remove(StaticVariables.getPrefRestaurantId());
         editor.remove(StaticVariables.getPrefRestaurantName());
+
+        editor.remove(StaticVariables.getPrefPhoneno());
+        editor.remove(StaticVariables.getPrefOpentime());
+        editor.remove(StaticVariables.getPrefClosetime());
 
         editor.commit();
     }

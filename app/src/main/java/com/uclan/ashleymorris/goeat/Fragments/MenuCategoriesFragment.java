@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uclan.ashleymorris.goeat.Adapters.CategoriesListAdapter;
@@ -35,6 +36,7 @@ public class MenuCategoriesFragment extends Fragment {
     //JSON IDs
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
+
     private static final String TAG_CATEGORIES = "categories";//Refers to the array
     private static final String TAG_CATEGORY = "category"; //Refers to elements in the array
 
@@ -45,6 +47,8 @@ public class MenuCategoriesFragment extends Fragment {
     private SessionManager session;
 
     private ListView listView;
+
+    private TextView textName, textCloseTime;
 
     public MenuCategoriesFragment() {
         // Required empty public constructor
@@ -65,15 +69,17 @@ public class MenuCategoriesFragment extends Fragment {
         session = new SessionManager(getActivity());
         listView = (ListView) getActivity().findViewById(R.id.listView_categories);
 
+        textName = (TextView) getActivity().findViewById(R.id.text_restaurant_name);
+        textCloseTime = (TextView) getActivity().findViewById(R.id.text_closetime);
+
+        textName.setText(session.getRestaurantName());
+        textCloseTime.setText("Closes at: " +session.getCloseTime());
+
         new LoadCategories().execute();
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        //new LoadCategories().execute();
-    }
+
 
     private class LoadCategories extends AsyncTask<Void, Void, String[]>{
 

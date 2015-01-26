@@ -26,6 +26,7 @@ import com.uclan.ashleymorris.goeat.R;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,6 +39,7 @@ import java.util.List;
  *
  */
 public class CheckInFragment extends Fragment {
+
 
     private Button buttonScan;
     private TextView textName;
@@ -53,10 +55,20 @@ public class CheckInFragment extends Fragment {
     private static final String CHECKIN_URL =
             "/restaurant-service/system-scripts/checkin-checkout.php";
 
+    private static final String DETAILS_URL =
+            "/restaurant-service/scripts/get_restaurant-details.php";
+
+    private JSONObject details;
+
     //Corresponds to the JSON responses array element tags.
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
 
+    private static final String TAG_DETAILS = "restaurant";
+    private static final String TAG_PHONENO = "phone_number";
+    private static final String TAG_OPENTIME = "open_time";
+    private static final String TAG_CLOSETIME = "close_time";
+    private static final String TAG_ADDRESS = "address";
 
     public CheckInFragment() {
         // Required empty public constructor
@@ -149,7 +161,12 @@ public class CheckInFragment extends Fragment {
         }
     }
 
-    private class CheckInTask extends AsyncTask<Void, Void, JSONObject> {
+    private class Wrapper{
+        private JSONObject jsonResponse;
+        private JSONObject jsonResponse2;
+    }
+
+    private class CheckInTask extends AsyncTask<Void, Void, Wrapper> {
 
         int id, table;
         String restaurant;
@@ -178,9 +195,10 @@ public class CheckInFragment extends Fragment {
         }
 
         @Override
-        protected JSONObject doInBackground(Void... voids) {
+        protected Wrapper doInBackground(Void... voids) {
 
-            String url = session.getServerIp()+CHECKIN_URL;
+            String checkinUrl = session.getServerIp()+CHECKIN_URL;
+            String detailsUrl = session.getServerIp()+DETAILS_URL;
 
             //Associative array containing the parameters to pass to the query:
             List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -188,30 +206,50 @@ public class CheckInFragment extends Fragment {
             params.add(new BasicNameValuePair("customer_id", session.getUserName()));
             params.add(new BasicNameValuePair("table_number", Integer.toString(table)));
 
-            JSONObject jsonResponse = jsonParser.makeHttpRequest(url, HttpPost.METHOD_NAME, params);
+            JSONObject jsonResponse = jsonParser.makeHttpRequest(checkinUrl, HttpPost.METHOD_NAME, params);
+            JSONObject jsonResponse2 = jsonParser.getJSONFromUrl(detailsUrl);
 
-            return jsonResponse;
+            Wrapper jsonWrapper = new Wrapper();
+            jsonWrapper.jsonResponse = jsonResponse;
+            jsonWrapper.jsonResponse2 = jsonResponse2;
+
+
+            return jsonWrapper;
         }
 
         @Override
-        protected void onPostExecute(JSONObject jsonResponse) {
-            super.onPostExecute(jsonResponse);
+        protected void onPostExecute(Wrapper jsonWrapper) {
+            super.onPostExecute(jsonWrapper);
 
             progressDialog.cancel();
-            if (jsonResponse != null) {
+
+            if (jsonWrapper != null) {
                 //Data has been retrieved
                 try {
 
-                    int successCode = jsonResponse.getInt(TAG_SUCCESS);
-                    String message = jsonResponse.getString(TAG_MESSAGE);
+                    int successCode = jsonWrapper.jsonResponse.getInt(TAG_SUCCESS);
+                    int successCode2 = jsonWrapper.jsonResponse2.getInt(TAG_SUCCESS);
 
-                    if (successCode == 1) {
+                    //Retrieve the JSON array from the Json response:
+                    details = jsonWrapper.jsonResponse2.getJSONObject(TAG_DETAILS);
+
+                    //Retrieve the individual elements from the array.
+                    String phoneNo = details.getString(TAG_PHONENO);
+                    String closeTime = details.getString(TAG_CLOSETIME);
+                    String openTime = details.getString(TAG_OPENTIME);
+                    String address = details.getString(TAG_ADDRESS);
+
+
+                    //Both have to be a success in order to continue
+                    if (successCode == 1 && successCode2 == 1) {
 
                         //Save the user data:
-                        //Save this checkin to the user session.
-                        session.createNewUserSession(id,restaurant,table);
+                        //Save this check-in to the user session.
+                        session.createNewUserSession(id,restaurant,table, phoneNo,openTime,
+                                closeTime, address);
 
                         //Login has been successful
+                        String message =  jsonWrapper.jsonResponse.getString(TAG_MESSAGE);
                         Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
 
                         //Begin fragment change
@@ -222,8 +260,18 @@ public class CheckInFragment extends Fragment {
                         transaction.commit();
 
                     } else {
-                        //Unsuccessful login
-                        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+                        //If the check-in was unsuccessful will show message 1, if retrieving details
+                        //will show message2, else if both throw an error will show them both in sequence.
+                        //Unsuccessful login, message 1
+                        if(successCode == 0){
+                            String message =  jsonWrapper.jsonResponse.getString(TAG_MESSAGE);
+                            Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+                        }
+                        if(successCode2 == 0){
+                            String message =  jsonWrapper.jsonResponse2.getString(TAG_MESSAGE);
+                            Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+                        }
+
                     }
 
                 } catch (JSONException e) {

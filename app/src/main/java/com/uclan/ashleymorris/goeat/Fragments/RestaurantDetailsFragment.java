@@ -68,6 +68,24 @@ public class RestaurantDetailsFragment extends Fragment {
 
         session = new SessionManager(getActivity());
 
+        textName = (TextView) getActivity().findViewById(R.id.text_restaurant_name);
+        textAddress = (TextView) getActivity().findViewById(R.id.text_address);
+        textPhoneNum = (TextView) getActivity().findViewById(R.id.text_phonnumber);
+        textOpenTime = (TextView) getActivity().findViewById(R.id.text_opentime);
+        textCloseTime = (TextView) getActivity().findViewById(R.id.text_closetime);
+
+        //Update the views with the saved restaurant data
+        textName.setText(session.getRestaurantName());
+        textAddress.setText(session.getAddress());
+        textPhoneNum.setText(session.getPhoneNo());
+        textOpenTime.setText(session.getOpenTime());
+        textCloseTime.setText(session.getCloseTime());
+
+
+
+
+
+
         buttonCheckout = (Button) getActivity().findViewById(R.id.button_checkout);
         buttonCheckout.setOnClickListener(new View.OnClickListener() {
             View v;

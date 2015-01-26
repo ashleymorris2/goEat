@@ -5,8 +5,7 @@ package com.uclan.ashleymorris.goeat.Classes;
  */
 public class StaticVariables {
 
-    //Holds the static string for shared preferences
-
+    //Holds the static strings for shared preferences
     private static final String PREF_NAME = "user_data";
 
     private static final String PREF_USER_NAME = "username";
@@ -15,6 +14,11 @@ public class StaticVariables {
     private static final String PREF_RESTAURANT_ID = "restaurant_id";
     private static final String PREF_RESTAURANT_NAME = "restaurant_name";
     private static final String PREF_TABLE_NUMBER = "restaurant_table_number";
+    private static final String PREF_PHONENO = "restaurant_phone_number";
+    private static final String PREF_OPENTIME = "opening_time";
+    private static final String PREF_CLOSETIME = "close_time";
+    private static final String PREF_ADDRESS = "restaurant_address";
+
     private static final String PREF_CHECKIN_STATUS = "isCheckedIn";
 
     private static final String PREF_IP = "ip_address";
@@ -34,7 +38,6 @@ public class StaticVariables {
     }
 
 
-
     //==Check in session:==
     public static String getPrefRestaurantId() {
         return PREF_RESTAURANT_ID;
@@ -52,9 +55,24 @@ public class StaticVariables {
         return PREF_CHECKIN_STATUS;
     }
 
+    public static String getPrefPhoneno() {
+        return PREF_PHONENO;
+    }
+
+    public static String getPrefOpentime() {
+        return PREF_OPENTIME;
+    }
+
+    public static String getPrefClosetime() {
+        return PREF_CLOSETIME;
+    }
+
+    public static String getPrefAddress() {
+        return PREF_ADDRESS;
+    }
+
+
     //==System preferences:==
-
-
     public static String getPrefIp() {
         return PREF_IP;
     }
