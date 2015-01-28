@@ -21,15 +21,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.LoginActivity"
+            android:name=".Activities.Authentication.LoginActivity"
             android:label="@string/title_activity_activity_login" >
         </activity>
         <activity
-            android:name=".Activities.RegisterActivty"
+            android:name=".Activities.Authentication.RegisterActivty"
             android:label="@string/title_activity_register_activty" >
         </activity>
         <activity
-            android:name=".Activities.StartActivity"
+            android:name=".Activities.Authentication.StartActivity"
             android:label="Start" >
         </activity>
         <activity

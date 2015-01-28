@@ -3,19 +3,18 @@ package com.uclan.ashleymorris.goeat.Fragments;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.uclan.ashleymorris.goeat.Activities.LoginActivity;
 import com.uclan.ashleymorris.goeat.Activities.MenuActivity;
 import com.uclan.ashleymorris.goeat.Classes.JSONParser;
 import com.uclan.ashleymorris.goeat.Classes.SessionManager;
@@ -36,11 +35,13 @@ import java.util.List;
 public class RestaurantDetailsFragment extends Fragment {
 
     JSONParser jsonParser = new JSONParser();
-    SessionManager session;
+
+    private SessionManager session;
+    private ProgressDialog progressDialog;
 
     //Home IP address, change for when at university:
     private static final String CHECKOUT_URL =
-            "/restaurant-service/system-scripts/checkin-checkout.php";
+            "/restaurant-service/scripts/checkin-checkout.php";
 
     //Corresponds to the JSON responses array element tags.
     private static final String TAG_SUCCESS = "success";
@@ -81,11 +82,7 @@ public class RestaurantDetailsFragment extends Fragment {
         textOpenTime.setText(session.getOpenTime());
         textCloseTime.setText(session.getCloseTime());
 
-
-
-
-
-
+        //Button on click listeners:
         buttonCheckout = (Button) getActivity().findViewById(R.id.button_checkout);
         buttonCheckout.setOnClickListener(new View.OnClickListener() {
             View v;
@@ -114,6 +111,18 @@ public class RestaurantDetailsFragment extends Fragment {
      * Post informs user of the outcome and redirects them to the Checkin page.
      */
     private class CheckOutTask extends AsyncTask<Void, Void, JSONObject> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            //Display progress dialogue on this screen
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage("Just a second...");
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(true);
+            progressDialog.show();
+        }
 
         @Override
         protected JSONObject doInBackground(Void... voids) {

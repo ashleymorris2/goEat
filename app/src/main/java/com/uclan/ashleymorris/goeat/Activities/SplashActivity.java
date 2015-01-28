@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 
+import com.uclan.ashleymorris.goeat.Activities.Authentication.StartActivity;
 import com.uclan.ashleymorris.goeat.Classes.SessionManager;
 import com.uclan.ashleymorris.goeat.R;
 

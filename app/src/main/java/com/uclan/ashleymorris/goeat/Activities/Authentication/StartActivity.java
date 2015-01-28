@@ -1,4 +1,4 @@
-package com.uclan.ashleymorris.goeat.Activities;
+package com.uclan.ashleymorris.goeat.Activities.Authentication;
 
 import android.app.Activity;
 import android.content.Intent;

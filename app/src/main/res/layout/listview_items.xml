@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_background"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/linearLayout"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Sweet Cured Bacon Steaks"
+                android:id="@+id/text_item_name"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A 6oz* grilled beef burger, with fresh baby gem lettuce, tomato, red onion, dill pickle, and mayo; topped with pulled pork and smothered with BBQ sauce."
+                android:id="@+id/text_item_description"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="4dp"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp">
+            <View
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@android:color/darker_gray"></View>
+            <View
+                android:layout_width="3dp"
+                android:layout_height="fill_parent"
+                android:background="#ffffff"></View>
+        </LinearLayout>
+
+
+
+
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            android:layout_weight=".5"
+            android:gravity="center"
+            android:layout_marginLeft="4dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="£12.50"
+                android:id="@+id/item_price"
+                android:gravity="center_vertical|center"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="0 in basket"
+                android:id="@+id/text_basket_value"
+                android:gravity="center_vertical|right"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

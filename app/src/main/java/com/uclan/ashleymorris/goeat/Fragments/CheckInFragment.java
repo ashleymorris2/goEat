@@ -40,7 +40,6 @@ import java.util.List;
  */
 public class CheckInFragment extends Fragment {
 
-
     private Button buttonScan;
     private TextView textName;
     private HashMap<String, String> barcodeData;
@@ -53,7 +52,7 @@ public class CheckInFragment extends Fragment {
 
     //Home IP address, change for when at university:
     private static final String CHECKIN_URL =
-            "/restaurant-service/system-scripts/checkin-checkout.php";
+            "/restaurant-service/scripts/checkin-checkout.php";
 
     private static final String DETAILS_URL =
             "/restaurant-service/scripts/get_restaurant-details.php";

@@ -1,5 +1,4 @@
-package com.uclan.ashleymorris.goeat.Fragments;
-
+package com.uclan.ashleymorris.goeat.Fragments.Menu;
 
 
 import android.app.ProgressDialog;
@@ -27,7 +26,7 @@ import org.json.JSONObject;
  * A simple {@link Fragment} subclass.
  *
  */
-public class MenuCategoriesFragment extends Fragment {
+public class CategoriesListFragment extends Fragment {
 
     //URL
     private static final String CATEGORIES_URL =
@@ -50,7 +49,7 @@ public class MenuCategoriesFragment extends Fragment {
 
     private TextView textName, textCloseTime;
 
-    public MenuCategoriesFragment() {
+    public CategoriesListFragment() {
         // Required empty public constructor
     }
 
@@ -78,8 +77,6 @@ public class MenuCategoriesFragment extends Fragment {
         new LoadCategories().execute();
 
     }
-
-
 
     private class LoadCategories extends AsyncTask<Void, Void, String[]>{
 
@@ -158,7 +155,7 @@ public class MenuCategoriesFragment extends Fragment {
         }
     }
 
-    private void populateListView(String [] categoriesList){
+    private void populateListView(final String [] categoriesList){
 
         //Configure the adapter
         CategoriesListAdapter adapter = new CategoriesListAdapter(getActivity(), categoriesList);
@@ -173,6 +170,13 @@ public class MenuCategoriesFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View viewClicker, int position,
                                     long id) {
 
+                String itemClicked = categoriesList[position-1];
+
+                Fragment fragment = new ItemsListFragment();
+                getActivity().getFragmentManager().beginTransaction()
+                        .replace(R.id.main_content, fragment)
+                        .addToBackStack(null)
+                        .commit();
 
             }
         });

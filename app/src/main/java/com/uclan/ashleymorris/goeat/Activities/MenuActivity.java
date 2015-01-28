@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.uclan.ashleymorris.goeat.Fragments.MenuCategoriesFragment;
+import com.uclan.ashleymorris.goeat.Fragments.Menu.CategoriesListFragment;
 import com.uclan.ashleymorris.goeat.R;
 
 public class MenuActivity extends Activity {
@@ -16,7 +16,7 @@ public class MenuActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        Fragment firstFragment = new MenuCategoriesFragment();
+        Fragment firstFragment = new CategoriesListFragment();
         getFragmentManager().beginTransaction().add(R.id.main_content, firstFragment).commit();
     }
 
