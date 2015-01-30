@@ -136,7 +136,11 @@ public class CategoriesListFragment extends Fragment {
             }
             catch (JSONException e) {
                 e.printStackTrace();
+                String errorMessage = "Couldn't retrieve data. Error: "+e.getMessage();
+                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_LONG).show();
+                return null;
             }
+
 
             return categoriesList;
         }

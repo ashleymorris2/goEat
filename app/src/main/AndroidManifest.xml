@@ -53,6 +53,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Activities.NumberPickerDialogue"
+            android:theme="@android:style/Theme.Holo.Dialog"
+            android:label="@string/title_activity_number_picker_dialogue" >
+        </activity>
     </application>
 
 </manifest>

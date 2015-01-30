@@ -1,0 +1,171 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+
+
+                android:layout_height="300dp"
+                tools:context="com.avaygo.myfastingtracker.Activities.DurationPickerDialogue"
+                android:id="@+id/linearLayout"
+                android:background="@android:drawable/screen_background_light"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Cheese and Bacon Burger "
+        android:id="@+id/textView3"
+        android:textColor="@color/MainTextColour"
+        android:layout_alignEnd="@+id/linearLayoutHorizontal"
+        android:layout_marginRight="18dp"
+        android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        android:singleLine="false"
+        android:password="false"
+        android:maxLines="4"
+        android:layout_alignParentEnd="false"
+        android:layout_marginTop="18dp"
+        android:layout_alignStart="@+id/linearLayout4"/>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_above="@+id/linearLayout3"
+        android:layout_alignEnd="@+id/linearLayout3"
+        android:id="@+id/view2"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayoutHorizontal"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/linearLayoutHorizontal"
+        android:layout_alignParentEnd="false"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="28dp"
+        android:gravity="right"
+        android:layout_marginRight="18dp"
+        android:id="@+id/linearLayout4">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Total:"
+            android:id="@+id/textView"
+            android:layout_above="@+id/view2"
+            android:layout_alignParentStart="true"
+            android:textColor="@color/MainTextColour"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="£225.70"
+            android:id="@+id/textView2"
+            android:textSize="18sp"
+            android:layout_alignTop="@+id/textView"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/MainTextColour"
+            android:layout_marginLeft="18dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:id="@+id/linearLayout3"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/linearLayoutHorizontal"
+        >
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:id="@+id/button3"
+            android:layout_below="@+id/linearLayoutHorizontal"
+            android:layout_alignParentStart="true"
+            android:textSize="14sp"
+            android:layout_weight=".5"
+            android:background="@android:drawable/screen_background_light"/>
+
+        <LinearLayout
+            android:layout_width="4dp"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:layout_marginLeft="2dp">
+            <View
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:background="@android:color/darker_gray"></View>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:background="#ffffff"
+                android:id="@+id/"></View>
+        </LinearLayout>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirm"
+            android:id="@+id/button4"
+            android:layout_alignBottom="@+id/button3"
+            android:layout_toEndOf="@+id/button3"
+            android:textSize="14sp"
+            android:layout_weight=".5"
+            android:background="@android:drawable/screen_background_light"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayoutHorizontal"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="-"
+            android:id="@+id/button"
+            android:background="@drawable/cancel_button2"
+            android:textColor="#ffffff"/>
+
+        <EditText
+            android:layout_width="122dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText"
+            android:layout_gravity="center_horizontal"
+            android:text="0"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:textColor="@color/MainTextColour"
+            android:numeric="integer"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:id="@+id/button2"
+            android:text="+"
+            android:background="@drawable/light_theme_button"
+            android:textColor="#ffffff"/>
+    </LinearLayout>
+
+</RelativeLayout>
