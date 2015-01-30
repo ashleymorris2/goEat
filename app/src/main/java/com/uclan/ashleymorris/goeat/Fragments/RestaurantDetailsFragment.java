@@ -142,6 +142,9 @@ public class RestaurantDetailsFragment extends Fragment {
         @Override
         protected void onPostExecute(JSONObject jsonResponse) {
             super.onPostExecute(jsonResponse);
+
+            progressDialog.cancel();
+
             if (jsonResponse != null) {
                 //Data has been retrieved
                 try {
@@ -151,7 +154,7 @@ public class RestaurantDetailsFragment extends Fragment {
 
                     if (successCode == 1) {
 
-                        //Clears the user checkin data, clearing them from the restaurant tables database
+                        //Clears the user check-in data, clearing them from the restaurant tables database
                         session.checkOutUser();
 
                         //Checkout has been successful

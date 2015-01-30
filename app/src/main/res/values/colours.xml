@@ -3,7 +3,7 @@
     <color name="BackgroundBlue">#59ABE3</color>
 
     <color name="MainBackground">#F2F1EF</color>
-    
+    <color name="SecondBackground">#FFE0E0E0</color>
     
     
 </resources>

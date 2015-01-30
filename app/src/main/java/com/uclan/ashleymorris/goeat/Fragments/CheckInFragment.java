@@ -45,10 +45,11 @@ public class CheckInFragment extends Fragment {
     private HashMap<String, String> barcodeData;
     private ProgressDialog progressDialog;
 
-    JSONParser jsonParser = new JSONParser();
-    QRParser parser;
+    private JSONObject details;
+    private QRParser parser;
+    private SessionManager session;
 
-    SessionManager session;
+    JSONParser jsonParser = new JSONParser();
 
     //Home IP address, change for when at university:
     private static final String CHECKIN_URL =
@@ -56,8 +57,6 @@ public class CheckInFragment extends Fragment {
 
     private static final String DETAILS_URL =
             "/restaurant-service/scripts/get_restaurant-details.php";
-
-    private JSONObject details;
 
     //Corresponds to the JSON responses array element tags.
     private static final String TAG_SUCCESS = "success";
@@ -68,6 +67,7 @@ public class CheckInFragment extends Fragment {
     private static final String TAG_OPENTIME = "open_time";
     private static final String TAG_CLOSETIME = "close_time";
     private static final String TAG_ADDRESS = "address";
+
 
     public CheckInFragment() {
         // Required empty public constructor

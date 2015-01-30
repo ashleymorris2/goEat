@@ -107,7 +107,6 @@ public class JSONParser {
     public JSONObject makeHttpRequest(String url, String method, List<NameValuePair> params){
 
 
-
         try{
             if(method == "POST"){
                 //request is post

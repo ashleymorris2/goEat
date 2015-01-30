@@ -160,6 +160,7 @@ public class CategoriesListFragment extends Fragment {
         //Configure the adapter
         CategoriesListAdapter adapter = new CategoriesListAdapter(getActivity(), categoriesList);
 
+        //Remove the header and footer
         listView.addFooterView(new View(getActivity()), null, false);
         listView.addHeaderView(new View(getActivity()), null, false);
 
@@ -172,7 +173,15 @@ public class CategoriesListFragment extends Fragment {
 
                 String itemClicked = categoriesList[position-1];
 
+                //Bundle the itemclicked string as an argument to send to the next fragment
+                Bundle arguments = new Bundle();
+                arguments.putString("ITEM_CLICKED", itemClicked);
+
+                //Pass the arguments to the fragment
                 Fragment fragment = new ItemsListFragment();
+                fragment.setArguments(arguments);
+
+                //Commit the transaction
                 getActivity().getFragmentManager().beginTransaction()
                         .replace(R.id.main_content, fragment)
                         .addToBackStack(null)
