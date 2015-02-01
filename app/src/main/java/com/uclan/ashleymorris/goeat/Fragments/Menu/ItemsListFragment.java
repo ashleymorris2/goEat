@@ -3,12 +3,14 @@ package com.uclan.ashleymorris.goeat.Fragments.Menu;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.uclan.ashleymorris.goeat.Activities.NumberPickerDialogue;
 import com.uclan.ashleymorris.goeat.Adapters.ItemsListAdapter;
 import com.uclan.ashleymorris.goeat.Classes.Item;
 import com.uclan.ashleymorris.goeat.Classes.SessionManager;
@@ -143,19 +146,17 @@ public class ItemsListFragment extends Fragment {
                         JsonObject object = parser.parse(reader).getAsJsonObject();
                         JsonArray itemsJson = object.get(TAG_ITEMS).getAsJsonArray();
 
-                        //Log.d("JSON ITEMS = ", itemsJson);
 
-                        //Build up the GSON
+                        //Build up the JSON, use GSON to convert to an array of POJOs
                         GsonBuilder gsonBuilder = new GsonBuilder();
                         Gson gson = gsonBuilder.create();
                         menuItemsList = Arrays.asList(gson.fromJson(itemsJson, Item[].class));
                         content.close();
 
                         return menuItemsList;
-
                     }
                     catch (Exception ex){
-                        Log.e("ERROR", "JSON error : " + ex);
+                        Log.e("ERROR", "JSON error : " + ex.getMessage());
                     }
 
                 }
@@ -164,10 +165,13 @@ public class ItemsListFragment extends Fragment {
                 }
 
             } catch (UnsupportedEncodingException e) {
+                Log.e("ERROR", "Encoding error : " + e.getMessage());
                 e.printStackTrace();
             } catch (ClientProtocolException e) {
+                Log.e("ERROR", "Protocol error : " + e.getMessage());
                 e.printStackTrace();
             } catch (IOException e) {
+                Log.e("ERROR", "IO error : " + e.getMessage());
                 e.printStackTrace();
             }
 
@@ -187,7 +191,7 @@ public class ItemsListFragment extends Fragment {
         }
     }
 
-    private void populateListView(List<Item> items) {
+    private void populateListView(final List<Item> items) {
 
         ItemsListAdapter adapter = new ItemsListAdapter(getActivity(), items);
 
@@ -197,6 +201,20 @@ public class ItemsListFragment extends Fragment {
 
         //Pass the adapter to the listview
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+                Item currentItem = items.get(position - 1);
+
+                Intent intent = new Intent(getActivity(), NumberPickerDialogue.class);
+                intent.putExtra("ITEM_NAME", currentItem.getName());
+                intent.putExtra("ITEM_PRICE", currentItem.getPrice());
+
+
+                startActivityForResult(intent, 1);
+            }
+        });
 
     }
 }

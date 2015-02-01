@@ -6,9 +6,11 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,7 +134,6 @@ public class CheckInFragment extends Fragment {
                 final int table = Integer.parseInt(barcodeData.get("table"));
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-                builder.setTitle("Check in?");
                 builder.setMessage("Checking in to " +restaurant+" on table " +table+".");
                 builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
                     @Override

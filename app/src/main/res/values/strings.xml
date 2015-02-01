@@ -7,11 +7,12 @@
     <string name="title_activity_activity_login">Login</string>
     <string name="title_activity_register_activty">Register</string>
     <string name="title_activity_splash">Splash</string>
-    <string name="title_activity_main">goEat</string>
-    <string name="title_activity_login_register">goEat</string>
+    <string name="title_activity_main">Go Eat</string>
+    <string name="title_activity_login_register">Go Eat</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_menu">Menu</string>
     <string name="title_activity_ipaddress_settings">IP Address Settings</string>
-    <string name="title_activity_number_picker_dialogue">NumberPickerDialogue</string>
+    <string name="title_activity_number_picker_dialogue">Quantity</string>
+    <string name="title_activity_basket">Basket</string>
 
 </resources>

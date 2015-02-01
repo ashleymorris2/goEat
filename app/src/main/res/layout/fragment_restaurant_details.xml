@@ -55,7 +55,8 @@
                     android:layout_alignParentStart="true"
                     android:textSize="16sp"
                     android:gravity="center"
-                    android:layout_marginBottom="2dp" />
+                    android:layout_marginBottom="2dp"
+                    android:textColor="@color/MainTextColour"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -66,7 +67,8 @@
                     android:textSize="16sp"
                     android:gravity="center"
                     android:layout_marginBottom="4dp"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColor="@color/MainTextColour"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -74,7 +76,8 @@
                     android:text="Open: 10:00am"
                     android:id="@+id/text_opentime"
                     android:textSize="14sp"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textColor="@color/MainTextColour"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -82,7 +85,8 @@
                     android:text="Close: 10:00pm"
                     android:id="@+id/text_closetime"
                     android:textSize="14sp"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textColor="@color/MainTextColour"/>
 
             </LinearLayout>
         </RelativeLayout>
@@ -110,18 +114,20 @@
             android:layout_weight="0.50"
             android:background="@drawable/cancel_button2"
             android:layout_marginRight="4dp"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textStyle="bold"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:text="View menu"
+            android:text="Menu"
             android:id="@+id/button_viewmenu"
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@+id/textbutton_register"
             android:layout_weight="0.50"
             android:background="@drawable/light_theme_button"
             android:textColor="#ffffff"
-            android:layout_marginLeft="4dp" />
+            android:layout_marginLeft="4dp"
+            android:textStyle="bold"/>
     </LinearLayout>
 </RelativeLayout>

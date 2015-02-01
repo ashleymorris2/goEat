@@ -2,12 +2,14 @@
                 xmlns:tools="http://schemas.android.com/tools"
 
 
-                android:layout_height="300dp"
-                tools:context="com.avaygo.myfastingtracker.Activities.DurationPickerDialogue"
+                android:layout_height="wrap_content"
+                tools:context="com.uclan.ashleymorris.goeat.Activities.NumberPickerDialogue"
                 android:id="@+id/linearLayout"
+                android:descendantFocusability="beforeDescendants"
+                android:focusableInTouchMode="true"
                 android:background="@android:drawable/screen_background_light"
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
     >
 
     <TextView
@@ -15,18 +17,18 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Cheese and Bacon Burger "
-        android:id="@+id/textView3"
+        android:id="@+id/text_item_name"
         android:textColor="@color/MainTextColour"
         android:layout_alignEnd="@+id/linearLayoutHorizontal"
         android:layout_marginRight="18dp"
         android:layout_alignParentTop="true"
-        android:textStyle="bold"
         android:singleLine="false"
-        android:password="false"
         android:maxLines="4"
         android:layout_alignParentEnd="false"
         android:layout_marginTop="18dp"
-        android:layout_alignStart="@+id/linearLayout4"/>
+        android:layout_alignStart="@+id/linearLayout4"
+        android:textSize="20sp"
+        />
 
     <View
         android:layout_width="wrap_content"
@@ -45,10 +47,11 @@
         android:layout_alignEnd="@+id/linearLayoutHorizontal"
         android:layout_alignParentEnd="false"
         android:layout_marginLeft="18dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="18dp"
         android:gravity="right"
         android:layout_marginRight="18dp"
-        android:id="@+id/linearLayout4">
+        android:id="@+id/linearLayout4"
+        android:layout_marginBottom="18dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -56,20 +59,17 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Total:"
             android:id="@+id/textView"
-            android:layout_above="@+id/view2"
-            android:layout_alignParentStart="true"
             android:textColor="@color/MainTextColour"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="£225.70"
-            android:id="@+id/textView2"
+            android:id="@+id/text_total_cost"
             android:textSize="18sp"
-            android:layout_alignTop="@+id/textView"
-            android:layout_alignParentEnd="true"
             android:textColor="@color/MainTextColour"
             android:layout_marginLeft="18dp"
             />
@@ -82,50 +82,49 @@
         android:weightSum="1"
         android:id="@+id/linearLayout3"
         android:gravity="center"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentBottom="false"
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/linearLayoutHorizontal"
-        >
+        android:layout_below="@+id/linearLayout4">
 
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:text="Cancel"
-            android:id="@+id/button3"
-            android:layout_below="@+id/linearLayoutHorizontal"
-            android:layout_alignParentStart="true"
+            android:id="@+id/button_cancel"
             android:textSize="14sp"
             android:layout_weight=".5"
-            android:background="@android:drawable/screen_background_light"/>
+            android:background="@android:drawable/screen_background_light"
+            android:textColor="@android:color/primary_text_light"/>
 
         <LinearLayout
             android:layout_width="4dp"
-            android:layout_height="fill_parent"
+            android:layout_height="48dp"
             android:orientation="horizontal"
             android:layout_marginLeft="2dp">
             <View
                 android:layout_width="1dp"
-                android:layout_height="fill_parent"
-                android:background="@android:color/darker_gray"></View>
+                android:layout_height="wrap_content"
+                android:background="@android:color/darker_gray">
+                </View>
             <View
                 android:layout_width="1dp"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:background="#ffffff"
-                android:id="@+id/"></View>
+                android:id="@+id/basic_view"></View>
         </LinearLayout>
 
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:text="Confirm"
-            android:id="@+id/button4"
-            android:layout_alignBottom="@+id/button3"
-            android:layout_toEndOf="@+id/button3"
+            android:id="@+id/button_confirm"
             android:textSize="14sp"
             android:layout_weight=".5"
-            android:background="@android:drawable/screen_background_light"/>
+            android:background="@android:drawable/screen_background_light"
+            android:textColor="@android:color/primary_text_light"/>
     </LinearLayout>
 
     <LinearLayout
@@ -134,38 +133,45 @@
         android:layout_height="wrap_content"
         android:id="@+id/linearLayoutHorizontal"
         android:gravity="center"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
         android:paddingLeft="18dp"
         android:paddingRight="18dp"
+        android:layout_below="@+id/text_item_name"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="18dp"
+        android:layout_alignParentEnd="true"
         >
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:text="-"
-            android:id="@+id/button"
+            android:id="@+id/button_minus"
             android:background="@drawable/cancel_button2"
-            android:textColor="#ffffff"/>
+            android:textColor="#ffffff"
+            android:layout_marginRight="8dp"
+            android:textStyle="bold"/>
 
         <EditText
-            android:layout_width="122dp"
+            android:layout_width="125dp"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
+            android:id="@+id/editText_quantity"
             android:layout_gravity="center_horizontal"
             android:text="0"
             android:gravity="center"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textColor="@color/MainTextColour"
-            android:numeric="integer"/>
+            android:numeric="integer|decimal"
+            android:maxLength="2"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:id="@+id/button2"
+            android:id="@+id/button_plus"
             android:text="+"
             android:background="@drawable/light_theme_button"
-            android:textColor="#ffffff"/>
+            android:textColor="#ffffff"
+            android:layout_marginLeft="8dp"
+            android:textStyle="bold"/>
     </LinearLayout>
 
 </RelativeLayout>

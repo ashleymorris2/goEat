@@ -113,6 +113,7 @@ public class CategoriesListFragment extends Fragment {
                 //1 means that data has been returned ok.
                 if (successCode == 1) {
 
+                    //Get the JSON response tagged as categories as an array.
                     categories = jsonResponse.getJSONArray(TAG_CATEGORIES);
 
                     //Makes categories list the same length as the JSON array
@@ -128,6 +129,7 @@ public class CategoriesListFragment extends Fragment {
                     }
                 }
                 else{
+                    //No data has been returned.
                     String message = jsonResponse.getString(TAG_MESSAGE);
                     Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
                     return null;
@@ -159,6 +161,13 @@ public class CategoriesListFragment extends Fragment {
         }
     }
 
+
+    /**
+     * Populates the listView on this screen with the string array that contains the elements returned
+     * from parsing the JSON response.
+     *
+     * @param categoriesList The string array that contains the returned categories.
+     */
     private void populateListView(final String [] categoriesList){
 
         //Configure the adapter
