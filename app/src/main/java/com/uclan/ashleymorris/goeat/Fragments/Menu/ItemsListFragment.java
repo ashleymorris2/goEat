@@ -23,6 +23,7 @@ import com.uclan.ashleymorris.goeat.Activities.NumberPickerDialogue;
 import com.uclan.ashleymorris.goeat.Adapters.ItemsListAdapter;
 import com.uclan.ashleymorris.goeat.Classes.Item;
 import com.uclan.ashleymorris.goeat.Classes.SessionManager;
+import com.uclan.ashleymorris.goeat.Databases.BasketDataSource;
 import com.uclan.ashleymorris.goeat.R;
 
 import org.apache.http.HttpEntity;
@@ -54,6 +55,8 @@ public class ItemsListFragment extends Fragment {
     private ListView listView;
 
     private SessionManager session;
+    private BasketDataSource basketDatasource;
+
     private ProgressDialog progressDialog;
 
     private static final String ITEMS_URL = "/restaurant-service/scripts/get-menu-items.php";
@@ -80,6 +83,8 @@ public class ItemsListFragment extends Fragment {
         String itemCategory = arguments.getString("ITEM_CLICKED");
 
         session = new SessionManager(getActivity());
+
+
         listView = (ListView) getActivity().findViewById(R.id.listView_items);
 
         textCategory = (TextView) getActivity().findViewById(R.id.text_category);
@@ -91,6 +96,7 @@ public class ItemsListFragment extends Fragment {
 
     private class LoadItems extends AsyncTask<Void, Void, List<Item>> {
 
+        boolean basketIsEmpty;
         String itemCategory;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 
@@ -153,6 +159,20 @@ public class ItemsListFragment extends Fragment {
                         menuItemsList = Arrays.asList(gson.fromJson(itemsJson, Item[].class));
                         content.close();
 
+                        basketDatasource = new BasketDataSource(getActivity());
+                        basketDatasource.open();
+
+                        //Checks the current count of the basket. If it isn't empty the boolean is false
+                        //This will mean that each item in the listview will have to check the database
+                        //To find out their stored quantity.
+                        //If it is empty then it is true.
+                        if(basketDatasource.getItemCount() > 0){
+                            basketIsEmpty = false;
+                        }
+                        else{
+                            basketIsEmpty = true;
+                        }
+
                         return menuItemsList;
                     }
                     catch (Exception ex){
@@ -186,14 +206,16 @@ public class ItemsListFragment extends Fragment {
             progressDialog.cancel();
 
             if(items != null){
-                populateListView(items);
+                populateListView(items, basketIsEmpty);
+                basketDatasource.close();
             }
+
         }
     }
 
-    private void populateListView(final List<Item> items) {
+    private void populateListView(final List<Item> items, boolean basketIsEmpty) {
 
-        ItemsListAdapter adapter = new ItemsListAdapter(getActivity(), items);
+        ItemsListAdapter adapter = new ItemsListAdapter(getActivity(), items, basketIsEmpty);
 
         //Remove the header and footer
         listView.addFooterView(new View(getActivity()), null, false);
@@ -210,7 +232,6 @@ public class ItemsListFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), NumberPickerDialogue.class);
                 intent.putExtra("ITEM_NAME", currentItem.getName());
                 intent.putExtra("ITEM_PRICE", currentItem.getPrice());
-
 
                 startActivityForResult(intent, 1);
             }

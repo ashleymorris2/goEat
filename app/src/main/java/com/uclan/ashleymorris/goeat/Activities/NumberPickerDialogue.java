@@ -3,12 +3,14 @@ package com.uclan.ashleymorris.goeat.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.uclan.ashleymorris.goeat.R;
 
@@ -38,6 +40,7 @@ public class NumberPickerDialogue extends Activity {
         totalCost.setText("£0.00");
 
         editTextQuantity = (EditText) findViewById(R.id.editText_quantity);
+       
 
         buttonPlus = (Button) findViewById(R.id.button_plus);
         buttonPlus.setOnClickListener(new View.OnClickListener() {

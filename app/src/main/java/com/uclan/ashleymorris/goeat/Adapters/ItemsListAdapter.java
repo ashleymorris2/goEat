@@ -21,13 +21,16 @@ public class ItemsListAdapter extends ArrayAdapter<Item> {
     private Context context;
     private List<Item> items;
 
-    TextView textItemName, textItemPrice, textItemDescription;
+    private boolean basketIsEmpty;
+
+    private TextView textItemName, textItemPrice, textItemDescription, textQuantity;
 
 
-    public ItemsListAdapter(Context context, List<Item> items) {
+    public ItemsListAdapter(Context context, List<Item> items, boolean basketIsEmpty) {
         super(context, R.layout.listview_items, items);
         this.context = context;
         this.items = items;
+        this.basketIsEmpty = basketIsEmpty;
     }
 
     @Override
@@ -49,10 +52,21 @@ public class ItemsListAdapter extends ArrayAdapter<Item> {
         textItemName = (TextView) itemView.findViewById(R.id.text_item_name);
         textItemDescription = (TextView) itemView.findViewById(R.id.text_item_description);
         textItemPrice = (TextView) itemView.findViewById(R.id.text_item_price);
+        textQuantity = (TextView) itemView.findViewById(R.id.text_basket_value);
 
         //Fill the view:
         textItemName.setText(currentItem.getName());
         textItemDescription.setText(currentItem.getDescription());
+
+        //Basket value..
+        //If the basket is empty it must be zero, if not query the local database to get a count
+        if(basketIsEmpty){
+            textQuantity.setText("0 in basket");
+        }
+        else{
+            textQuantity.setText("1 in basket");
+        }
+
 
         //Use decimal format to add 2 decimal places to the price.
         DecimalFormat decimalFormat = new DecimalFormat();
