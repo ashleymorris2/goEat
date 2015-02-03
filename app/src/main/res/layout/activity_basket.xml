@@ -84,7 +84,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
         android:id="@+id/view"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="4dp"/>
 
         <TableLayout
             android:layout_width="fill_parent"
@@ -93,7 +93,11 @@
             android:layout_alignStart="@+id/view"
             android:layout_alignEnd="@+id/view"
             android:orientation="horizontal"
-            android:id="@+id/main_table">
+            android:id="@+id/main_table"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentStart="false"
+            android:paddingLeft="8dp"
+            android:paddingRight="12dp">
         </TableLayout>
 
         <View

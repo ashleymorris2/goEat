@@ -1,5 +1,6 @@
 package com.uclan.ashleymorris.goeat.Activities;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.graphics.Path;
 import android.os.Bundle;
@@ -71,10 +72,34 @@ public class BasketActivity extends Activity {
             for (int i = 0; i <basketItemList.size(); i++) {
 
                 TableRow tableRow = new TableRow(this);
-                tableRow.setPadding(0, 5, 5, 0);
+                tableRow.setPadding(0,4,0,4);
+
+                TableRow.LayoutParams param = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+
 
                 TextView text = new TextView(this);
                 TextView text2 = new TextView(this);
+
+               LinearLayout linearLayout = new LinearLayout(this);
+
+                linearLayout.setLayoutParams(param);
+                linearLayout.setWeightSum(2f);
+                linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT, 0.5f);
+
+                LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT, 1.5f);
+
+                params.gravity = Gravity.RIGHT;
+
+
+
+                text.setLayoutParams(params);
+                text2.setLayoutParams(params2);
+
 
 
                 //If the items quantity is greater than 1 then show the quantity to the user
@@ -85,13 +110,16 @@ public class BasketActivity extends Activity {
                     text.setText(basketItemList.get(i).getItemName());
                 }
 
-                text.setPadding(0, 0, 96, 0);
+                //text.setPadding(0, 0, 96, 0);
 
                 text2.setText(decimalFormat.format(basketItemList.get(i).getItemTotalCost()));
                 text2.setGravity(Gravity.RIGHT);
 
-                tableRow.addView(text);
-                tableRow.addView(text2);
+
+                linearLayout.addView(text);
+                linearLayout.addView(text2);
+
+                tableRow.addView(linearLayout);
 
                 table.addView(tableRow);
             }
