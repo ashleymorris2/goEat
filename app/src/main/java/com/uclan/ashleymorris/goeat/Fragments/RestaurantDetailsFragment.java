@@ -80,7 +80,7 @@ public class RestaurantDetailsFragment extends Fragment {
         textAddress.setText(session.getAddress());
         textPhoneNum.setText(session.getPhoneNo());
         textOpenTime.setText("Open: "+session.getOpenTime());
-        textCloseTime.setText("Close "+session.getCloseTime());
+        textCloseTime.setText("Close: "+session.getCloseTime());
 
         //Button on click listeners:
         buttonCheckout = (Button) getActivity().findViewById(R.id.button_checkout);

@@ -1,6 +1,7 @@
 package com.uclan.ashleymorris.goeat.Fragments.Menu;
 
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -59,6 +60,11 @@ public class ItemsListFragment extends Fragment {
 
     private ProgressDialog progressDialog;
 
+    private static String itemCategory;
+
+    private ItemsListAdapter adapter;
+
+
     private static final String ITEMS_URL = "/restaurant-service/scripts/get-menu-items.php";
     private static final String TAG_ITEMS = "items";
 
@@ -80,10 +86,9 @@ public class ItemsListFragment extends Fragment {
 
         //Retrieve the arguments that were sent with the fragment transaction
         Bundle arguments = getArguments();
-        String itemCategory = arguments.getString("ITEM_CLICKED");
+        itemCategory = arguments.getString("ITEM_CLICKED");
 
         session = new SessionManager(getActivity());
-
 
         listView = (ListView) getActivity().findViewById(R.id.listView_items);
 
@@ -97,8 +102,21 @@ public class ItemsListFragment extends Fragment {
     private class LoadItems extends AsyncTask<Void, Void, List<Item>> {
 
         boolean basketIsEmpty;
+
         String itemCategory;
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+
+        /**
+         * @param itemCategory
+         * The category of the menu items that are to be loaded into the listview and the value that
+         * is to be passed with the HTTP method.
+         */
+        private LoadItems(String itemCategory) {
+            this.itemCategory = itemCategory;
+            params.add(new BasicNameValuePair("category", itemCategory));
+        }
+
+
 
         @Override
         protected void onPreExecute() {
@@ -112,15 +130,6 @@ public class ItemsListFragment extends Fragment {
 
         }
 
-        /**
-         * @param itemCategory
-         * The category of the menu items that are to be loaded into the listview and the value that
-         * is to be passed with the HTTP method.
-         */
-        private LoadItems(String itemCategory) {
-            this.itemCategory = itemCategory;
-            params.add(new BasicNameValuePair("category", itemCategory));
-        }
 
         @Override
         protected List<Item> doInBackground(Void... voids) {
@@ -166,14 +175,20 @@ public class ItemsListFragment extends Fragment {
                         //This will mean that each item in the listview will have to check the database
                         //To find out their stored quantity.
                         //If it is empty then it is true.
-                        if(basketDatasource.getItemCount() > 0){
-                            basketIsEmpty = false;
-                        }
-                        else{
-                            basketIsEmpty = true;
+                        if(!basketDatasource.basketIsEmpty()){
+
+                            for(int i =0; i < menuItemsList.size(); i++){
+
+                                String name = menuItemsList.get(i).getName();
+                                int count= basketDatasource.getItemCount(name);
+
+                                menuItemsList.get(i).setBasketQuantity(count);
+
+                            }
                         }
 
                         return menuItemsList;
+
                     }
                     catch (Exception ex){
                         Log.e("ERROR", "JSON error : " + ex.getMessage());
@@ -206,36 +221,60 @@ public class ItemsListFragment extends Fragment {
             progressDialog.cancel();
 
             if(items != null){
-                populateListView(items, basketIsEmpty);
+                populateListView(items);
                 basketDatasource.close();
             }
 
         }
     }
 
-    private void populateListView(final List<Item> items, boolean basketIsEmpty) {
+    private void populateListView(final List<Item> items) {
 
-        ItemsListAdapter adapter = new ItemsListAdapter(getActivity(), items, basketIsEmpty);
+        //If the adapter is null then need to setup a new one, else the old one is reused and the
+        //data is refilled.
+        if(listView.getAdapter() == null) {
+            adapter = new ItemsListAdapter(getActivity(), items);
 
-        //Remove the header and footer
-        listView.addFooterView(new View(getActivity()), null, false);
-        listView.addHeaderView(new View(getActivity()), null, false);
+            //Pass the adapter to the listview
+            listView.setAdapter(adapter);
+        }
+        else{
+            ((ItemsListAdapter) listView.getAdapter()).refill(items);
+        }
 
-        //Pass the adapter to the listview
-        listView.setAdapter(adapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
-                Item currentItem = items.get(position - 1);
+                Item currentItem = items.get(position);
 
                 Intent intent = new Intent(getActivity(), NumberPickerDialogue.class);
                 intent.putExtra("ITEM_NAME", currentItem.getName());
                 intent.putExtra("ITEM_PRICE", currentItem.getPrice());
 
+                intent.putExtra("ITEM_QUANTITY", currentItem.getBasketQuantity());
+
                 startActivityForResult(intent, 1);
             }
         });
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //Refresh the listview if the data was changed in the 2nd activity
+        if(requestCode == 1){
+            if(resultCode == Activity.RESULT_OK){
+
+                LoadItems loadItems = new LoadItems(itemCategory);
+                loadItems.execute();
+
+            }
+
+        }
 
     }
 }

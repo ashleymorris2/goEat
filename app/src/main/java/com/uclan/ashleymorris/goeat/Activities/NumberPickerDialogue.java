@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.uclan.ashleymorris.goeat.Databases.BasketDataSource;
 import com.uclan.ashleymorris.goeat.R;
 
 import java.text.DecimalFormat;
@@ -20,10 +21,13 @@ public class NumberPickerDialogue extends Activity {
 
     private TextView itemName, totalCost;
 
-    private Button buttonPlus, buttonMinus, buttonCancel;
+    private Button buttonPlus, buttonMinus, buttonCancel, buttonConfirm;
     private EditText editTextQuantity;
+    private BasketDataSource basketDataSource;
 
-    private double price;
+    private String name;
+    private int currentQuantity;
+    private double price, totalPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +35,19 @@ public class NumberPickerDialogue extends Activity {
         setContentView(R.layout.dialogue_number_picker);
 
         final Intent intent = getIntent();
+        basketDataSource = new BasketDataSource(getApplicationContext());
+
         price = intent.getDoubleExtra("ITEM_PRICE", 0);
 
         itemName = (TextView) findViewById(R.id.text_item_name);
-        itemName.setText(intent.getStringExtra("ITEM_NAME"));
+        name = intent.getStringExtra("ITEM_NAME");
+        itemName.setText(name);
 
         totalCost = (TextView) findViewById(R.id.text_total_cost);
         totalCost.setText("£0.00");
 
         editTextQuantity = (EditText) findViewById(R.id.editText_quantity);
-       
+        editTextQuantity.setText(String.valueOf(intent.getIntExtra("ITEM_QUANTITY", 0)));
 
         buttonPlus = (Button) findViewById(R.id.button_plus);
         buttonPlus.setOnClickListener(new View.OnClickListener() {
@@ -48,13 +55,13 @@ public class NumberPickerDialogue extends Activity {
             public void onClick(View view) {
 
                 //Update the edit text
-                int currentQuantity = Integer.parseInt(editTextQuantity.getText().toString());
+                currentQuantity = Integer.parseInt(editTextQuantity.getText().toString());
                 if(currentQuantity != 99) {
                     currentQuantity++;
                     editTextQuantity.setText(String.valueOf(currentQuantity));
 
                     //Update the price
-                    double totalPrice = price;
+                    totalPrice = price;
                     totalPrice = price * currentQuantity;
                     totalPrice = (double) Math.round(totalPrice * 100) / 100;
 
@@ -70,15 +77,15 @@ public class NumberPickerDialogue extends Activity {
         buttonMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Update the edit text
-                int currentQuantity = Integer.parseInt(editTextQuantity.getText().toString());
 
+               //Update the edit text
+                currentQuantity = Integer.parseInt(editTextQuantity.getText().toString());
                 if(currentQuantity != 0) {
                     currentQuantity--;
                     editTextQuantity.setText(String.valueOf(currentQuantity));
 
                     //Update the price
-                    double totalPrice = price;
+                    totalPrice = price;
                     totalPrice = price * currentQuantity;
                     totalPrice = (double) Math.round(totalPrice * 100) / 100;
 
@@ -98,10 +105,30 @@ public class NumberPickerDialogue extends Activity {
             }
         });
 
+        buttonConfirm = (Button) findViewById(R.id.button_confirm);
+        buttonConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                basketDataSource.open();
 
+                //Insert or replace the item in the basket if the quantity selected is greater than 0.
+                if(currentQuantity >0) {
+                    basketDataSource.addItemToBasket(name, currentQuantity, totalPrice);
+                }
+                //Remove from the basket
+                else{
+                 basketDataSource.removeItemFromBasket(name);
+                }
+
+                basketDataSource.close();
+
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

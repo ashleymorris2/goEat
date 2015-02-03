@@ -14,7 +14,10 @@ public class Item {
     private double price;
     private String description;
 
+    private int basketQuantity;
+
     public Item(){
+        //Gson requires a default empty constructor
 
     }
 
@@ -34,5 +37,14 @@ public class Item {
 
     public String getDescription() {
         return description;
+    }
+
+
+    public int getBasketQuantity() {
+        return basketQuantity;
+    }
+
+    public void setBasketQuantity(int basketQuantity) {
+        this.basketQuantity = basketQuantity;
     }
 }

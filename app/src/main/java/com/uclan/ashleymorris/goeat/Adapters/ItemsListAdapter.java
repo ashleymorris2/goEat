@@ -11,6 +11,7 @@ import com.uclan.ashleymorris.goeat.Classes.Item;
 import com.uclan.ashleymorris.goeat.R;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,16 +22,13 @@ public class ItemsListAdapter extends ArrayAdapter<Item> {
     private Context context;
     private List<Item> items;
 
-    private boolean basketIsEmpty;
-
     private TextView textItemName, textItemPrice, textItemDescription, textQuantity;
 
 
-    public ItemsListAdapter(Context context, List<Item> items, boolean basketIsEmpty) {
+    public ItemsListAdapter(Context context, List<Item> items) {
         super(context, R.layout.listview_items, items);
         this.context = context;
         this.items = items;
-        this.basketIsEmpty = basketIsEmpty;
     }
 
     @Override
@@ -59,12 +57,12 @@ public class ItemsListAdapter extends ArrayAdapter<Item> {
         textItemDescription.setText(currentItem.getDescription());
 
         //Basket value..
-        //If the basket is empty it must be zero, if not query the local database to get a count
-        if(basketIsEmpty){
-            textQuantity.setText("0 in basket");
+        if(currentItem.getBasketQuantity() > 0){
+            textQuantity.setVisibility(View.VISIBLE);
+            textQuantity.setText(currentItem.getBasketQuantity()+" in basket");
         }
         else{
-            textQuantity.setText("1 in basket");
+            textQuantity.setVisibility(View.GONE);
         }
 
 
@@ -78,5 +76,13 @@ public class ItemsListAdapter extends ArrayAdapter<Item> {
 
 
         return itemView;
+    }
+
+    public void refill(List<Item> items){
+
+        this.items = new ArrayList<Item>();
+        this.items.addAll(items);
+        notifyDataSetChanged();
+
     }
 }

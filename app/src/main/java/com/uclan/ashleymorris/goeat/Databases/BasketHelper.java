@@ -26,7 +26,7 @@ public class BasketHelper extends SQLiteOpenHelper{
     //The sql statement to create the table
     private static final String DATABASE_CREATE = "CREATE TABLE " +
             TABLE_NAME+ "(" +COLUMN_NAME+ " VARCHAR(150), " +COLUMN_QUANTITY+ " INTEGER, "+
-            COLUMN_PRICE+ " REAL);";
+            COLUMN_PRICE+ " REAL, PRIMARY KEY("+COLUMN_NAME+"));";
 
     public BasketHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
