@@ -105,20 +105,20 @@
         android:layout_alignParentStart="true">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="Checkout"
             android:id="@+id/button_checkout"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:layout_weight="0.50"
-            android:background="@drawable/cancel_button2"
+            android:background="@drawable/start_button"
             android:layout_marginRight="4dp"
             android:textColor="#ffffff"
             android:textStyle="bold"/>
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="Menu"
             android:id="@+id/button_viewmenu"

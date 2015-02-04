@@ -115,8 +115,6 @@ public class LoginActivity extends Activity {
             //Concatenate the stored ip address that the url together.
             String url = sessionManager.getServerIp()+LOGIN_URL;
 
-            Log.d("URL: ", url);
-
             //Associative array containing the parameters to pass to the query:
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("username", loginName));
@@ -124,19 +122,21 @@ public class LoginActivity extends Activity {
 
             JSONObject jsonResponse = jsonParser.makeHttpRequest(url, HttpPost.METHOD_NAME, params);
 
-            try {
-                int successCode = jsonResponse.getInt(TAG_SUCCESS);
+            if(jsonResponse != null) {
+                try {
+                    int successCode = jsonResponse.getInt(TAG_SUCCESS);
 
-                if (successCode == 1) {
-                    //Save the user data:
-                   sessionManager.saveUserDetails(loginName);
+                    if (successCode == 1) {
+                        //Save the user data:
+                        sessionManager.saveUserDetails(loginName);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
-            } catch (JSONException e) {
-                e.printStackTrace();
+                Log.d("Login attempt", jsonResponse.toString());
             }
-
-            Log.d("Login attempt", jsonResponse.toString());
 
             return jsonResponse;
         }
@@ -166,7 +166,8 @@ public class LoginActivity extends Activity {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
                         //Clears the backstack before starting a new activity.
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                |Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
 
                         finish();

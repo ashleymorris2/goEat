@@ -136,4 +136,9 @@ public class BasketDataSource {
         database.delete(BasketHelper.TABLE_NAME, BasketHelper.COLUMN_NAME + " =? ", new String []{itemName});
     }
 
+    public void emptyBasket(){
+
+        database.delete(BasketHelper.TABLE_NAME, null, null);
+    }
+
 }

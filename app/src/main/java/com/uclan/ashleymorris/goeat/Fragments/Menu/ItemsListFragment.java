@@ -174,7 +174,7 @@ public class ItemsListFragment extends Fragment {
                         //Checks the current count of the basket. If it isn't empty the boolean is false
                         //This will mean that each item in the listview will have to check the database
                         //To find out their stored quantity.
-                        //If it is empty then it is true.
+                        //If it is empty then it is true and the check won't be made.
                         if(!basketDatasource.basketIsEmpty()){
 
                             for(int i =0; i < menuItemsList.size(); i++){

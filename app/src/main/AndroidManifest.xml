@@ -63,6 +63,10 @@
             android:name=".Activities.BasketActivity"
             android:label="@string/title_activity_basket" >
         </activity>
+        <activity
+            android:name=".Activities.CheckoutActivity"
+            android:label="@string/title_activity_payment_sumary" >
+        </activity>
     </application>
 
 </manifest>

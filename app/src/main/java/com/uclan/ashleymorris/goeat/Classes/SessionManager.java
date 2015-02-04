@@ -12,6 +12,8 @@ public class SessionManager {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    final static int AWAITING_PAYMENT = 0;
+
 
     /**
      * @param context The calling application context.
@@ -43,6 +45,9 @@ public class SessionManager {
      * @param ID             The unique id that identifies the restaurant that the user is checking into.
      * @param restaurantName The restaurant that the user has checked in to.
      * @param tableNumber    The table number that the user is on.
+     * @param phoneNumber    The phone number of the restaurant, so that the database doesn't have to be
+     *                       queried again.
+     *
      */
     public void createNewUserSession(int ID, String restaurantName, int tableNumber, String phoneNumber,
                                      String openingTime, String closingTime, String address) {
@@ -62,6 +67,21 @@ public class SessionManager {
         editor.commit();
     }
 
+    /**
+     *
+     * Sets a boolean to true indicating that the customer has placed an order that is waiting to
+     * be fulfilled.
+     *
+     */
+    public void setOrderPlaced(boolean orderPlaced){
+        editor.putBoolean(StaticVariables.getPrefOrderStatus(), orderPlaced);
+        editor.commit();
+    }
+
+
+    public boolean orderIsPlaced(){
+        return this.sharedPreferences.getBoolean(StaticVariables.getPrefOrderStatus(), false);
+    }
 
     /**
      * @return A boolean representing whether the user has checked into a restaurant or not.
@@ -73,12 +93,14 @@ public class SessionManager {
 
     /**
      * @return A boolean. True if logged in, false if not.
+     * Represents if the user is logged into the app or not
      */
     public boolean isUserLoggedIn() {
         return this.sharedPreferences.getBoolean(StaticVariables.getPrefLoginStatus(), false);
     }
 
 
+    ///Restaurant details----
     public String getUserName() {
         return this.sharedPreferences.getString(StaticVariables.getPrefUserName(), null);
     }
@@ -126,6 +148,7 @@ public class SessionManager {
         editor.clear();
         editor.commit();
     }
+
 
     /**
      * System preferences:

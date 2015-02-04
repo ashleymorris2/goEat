@@ -14,5 +14,6 @@
     <string name="title_activity_ipaddress_settings">IP Address Settings</string>
     <string name="title_activity_number_picker_dialogue">Quantity</string>
     <string name="title_activity_basket">Basket</string>
+    <string name="title_activity_payment_sumary">Payment Sumary</string>
 
 </resources>

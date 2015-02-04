@@ -102,23 +102,25 @@ public class RegisterActivty extends Activity {
             JSONObject jsonResponse = jsonParser.makeHttpRequest(url,
                     HttpPost.METHOD_NAME, params);
 
-            try {
+            if(jsonResponse != null) {
+                try {
 
-                int successCode = jsonResponse.getInt(TAG_SUCCESS);
+                    int successCode = jsonResponse.getInt(TAG_SUCCESS);
 
-                if (successCode == 1) {
                     //Login has been successful
+                    if (successCode == 1) {
 
-                    //Save the userdata:
-                    sessionManager.saveUserDetails(registerName);
+                        //Save the userdata:
+                        sessionManager.saveUserDetails(registerName);
+
+                    }
 
                 }
+                catch (JSONException e) {
+                    Log.d(" Error ", jsonResponse.toString() + "  " + e.toString());;
+                }
 
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
-
-            Log.d(" attempt", jsonResponse.toString());
 
             return jsonResponse;
 
@@ -145,7 +147,8 @@ public class RegisterActivty extends Activity {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
                         //Clears the backstack before starting a new activity.
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                |Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
 
                         finish();

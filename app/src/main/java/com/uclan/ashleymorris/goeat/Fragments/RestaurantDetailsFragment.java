@@ -15,9 +15,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.uclan.ashleymorris.goeat.Activities.BasketActivity;
+import com.uclan.ashleymorris.goeat.Activities.CheckoutActivity;
 import com.uclan.ashleymorris.goeat.Activities.MenuActivity;
 import com.uclan.ashleymorris.goeat.Classes.JSONParser;
 import com.uclan.ashleymorris.goeat.Classes.SessionManager;
+import com.uclan.ashleymorris.goeat.Databases.BasketDataSource;
 import com.uclan.ashleymorris.goeat.R;
 
 import org.apache.http.NameValuePair;
@@ -51,6 +54,9 @@ public class RestaurantDetailsFragment extends Fragment {
 
     private Button buttonCheckout, buttonViewMenu;
 
+    private BasketDataSource basketDataSource;
+
+
     public RestaurantDetailsFragment() {
         // Required empty public constructor
     }
@@ -68,6 +74,9 @@ public class RestaurantDetailsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         session = new SessionManager(getActivity());
+        basketDataSource = new BasketDataSource(getActivity());
+        basketDataSource.open();
+
 
         textName = (TextView) getActivity().findViewById(R.id.text_restaurant_name);
         textAddress = (TextView) getActivity().findViewById(R.id.text_address);
@@ -88,12 +97,32 @@ public class RestaurantDetailsFragment extends Fragment {
             View v;
             @Override
             public void onClick(View view) {
-                CheckOutTask checkOutTask = new CheckOutTask();
-                checkOutTask.execute();
+                //If order place has been set then go to payment screen
+                //else If the basket is empty then checkout the user
+                //else If the basket has contents then go to basket screen.
+                if(session.orderIsPlaced()) {
+                    Intent intent = new Intent(getActivity(), CheckoutActivity.class);
+                    startActivity(intent);
+
+                }
+                else if(basketDataSource.basketIsEmpty()) {
+                    CheckOutTask checkOutTask = new CheckOutTask();
+                    checkOutTask.execute();
+                }
+                else{
+                    Intent intent = new Intent(getActivity(), BasketActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
         buttonViewMenu = (Button) getActivity().findViewById(R.id.button_viewmenu);
+
+        //If an order has been placed hide the view menu button
+        if(session.orderIsPlaced()){
+            buttonViewMenu.setVisibility(View.GONE);
+        }
+
         buttonViewMenu.setOnClickListener(new View.OnClickListener() {
            View v;
             @Override

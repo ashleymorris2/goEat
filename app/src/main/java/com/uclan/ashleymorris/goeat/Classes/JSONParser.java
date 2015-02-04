@@ -2,6 +2,7 @@ package com.uclan.ashleymorris.goeat.Classes;
 
 import android.util.Log;
 
+import org.apache.http.HttpConnection;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -12,6 +13,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,7 +50,15 @@ public class JSONParser {
 
         //Make a http request and open an input stream
         try {
-            DefaultHttpClient httpClient = new DefaultHttpClient();
+            //2 Second time out for the http connection
+            int connectionTimeOut = 2000;
+
+            //Parameters
+            HttpParams params = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(params,connectionTimeOut);
+
+            //Http
+            DefaultHttpClient httpClient = new DefaultHttpClient(params);
             HttpPost httpPost = new HttpPost(url);
 
             HttpResponse httpResponse = httpClient.execute(httpPost);
@@ -58,9 +70,17 @@ public class JSONParser {
             }
         }
         catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            Log.d("CLIENT PROTOCOL EXCEPTION:", e.toString());
+            return null;
+
+        }
+        catch (IOException e) {
+            Log.d("IO EXCEPTION:", e.toString());
+            return null;
+        }
+        catch (Exception e) {
+            Log.d("EXCEPTION:", e.toString());
+            return null;
         }
 
         //Use buffered reader to read the InputStream into a string.
@@ -106,11 +126,19 @@ public class JSONParser {
      */
     public JSONObject makeHttpRequest(String url, String method, List<NameValuePair> params){
 
-
         try{
+
+            //2 Second time out for the http connection
+            int connectionTimeOut = 4000;
+
+            //Parameters
+            HttpParams conParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(conParams,connectionTimeOut);
+            HttpConnectionParams.setSoTimeout(conParams, connectionTimeOut);
+
             if(method == "POST"){
                 //request is post
-                DefaultHttpClient httpClient = new DefaultHttpClient();
+                DefaultHttpClient httpClient = new DefaultHttpClient(conParams);
                 HttpPost httpPost = new HttpPost(url);
 
                 if(params != null){
@@ -124,7 +152,7 @@ public class JSONParser {
             }
 
             else if(method == "GET"){
-                DefaultHttpClient httpClient = new DefaultHttpClient();
+                DefaultHttpClient httpClient = new DefaultHttpClient(conParams);
 
                 if(params != null) {
                     String paramString = URLEncodedUtils.format(params, "utf-8");
@@ -139,13 +167,22 @@ public class JSONParser {
                 HttpEntity httpEntity = httpResponse.getEntity();
                 inputStream = httpEntity.getContent();
             }
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        }
+        catch (UnsupportedEncodingException e) {
+            Log.d("ENCODING EXCEPTION:", e.toString());
+            return null;
+        }
+        catch (ClientProtocolException e) {
+            Log.d("ClLIENT PROTOCOL EXCEPTION:", e.toString());
+            return null;
+        }
+        catch (IOException e) {
+            Log.d("IO EXCEPTION:", e.toString());
+            return null;
+        }
+        catch(Exception ex){
+            Log.d("EXCEPTION:", ex.toString());
+            return null;
         }
 
           //Use buffered reader to read the InputStream into a string.

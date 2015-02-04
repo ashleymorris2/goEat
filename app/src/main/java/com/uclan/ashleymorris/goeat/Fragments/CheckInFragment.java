@@ -209,12 +209,16 @@ public class CheckInFragment extends Fragment {
             JSONObject jsonResponse = jsonParser.makeHttpRequest(checkinUrl, HttpPost.METHOD_NAME, params);
             JSONObject jsonResponse2 = jsonParser.getJSONFromUrl(detailsUrl);
 
-            Wrapper jsonWrapper = new Wrapper();
-            jsonWrapper.jsonResponse = jsonResponse;
-            jsonWrapper.jsonResponse2 = jsonResponse2;
+            if (jsonResponse != null && jsonResponse2 != null) {
+                Wrapper jsonWrapper = new Wrapper();
+                jsonWrapper.jsonResponse = jsonResponse;
+                jsonWrapper.jsonResponse2 = jsonResponse2;
 
+                return jsonWrapper;
+            }
 
-            return jsonWrapper;
+            //Return null as default, meaning no data has been returned
+            return null;
         }
 
         @Override

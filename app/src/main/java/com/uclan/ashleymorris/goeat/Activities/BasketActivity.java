@@ -1,25 +1,38 @@
 package com.uclan.ashleymorris.goeat.Activities;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.graphics.Path;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.uclan.ashleymorris.goeat.Classes.BasketItem;
+import com.uclan.ashleymorris.goeat.Classes.JSONParser;
+import com.uclan.ashleymorris.goeat.Classes.SessionManager;
 import com.uclan.ashleymorris.goeat.Databases.BasketDataSource;
 import com.uclan.ashleymorris.goeat.R;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BasketActivity extends Activity {
@@ -27,8 +40,23 @@ public class BasketActivity extends Activity {
     private BasketDataSource basketDataSource;
     private List<BasketItem> basketItemList;
 
-    private TextView textBasketQuantity, textBasketTotalCost;
+    private SessionManager sessionManager;
+
+    private TextView textBasketQuantity, textBasketTotalCost, textReciptTotalCost;
     private TableLayout table;
+    private Button buttonPlaceOrder;
+
+    private JSONParser jsonParser = new JSONParser();
+    private ProgressDialog progressDialog;
+
+    private int totalItems = 0;
+    private double totalCost = 0;
+
+    private static final String ADD_ORDER_URL = "/restaurant-service/scripts/add-order-script.php";
+
+    //Corresponds to the JSON responses array element tags.
+    private static final String TAG_SUCCESS = "success";
+    private static final String TAG_MESSAGE = "message";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,92 +68,195 @@ public class BasketActivity extends Activity {
 
         basketItemList = basketDataSource.getBasketContents();
 
+        sessionManager = new SessionManager(getApplicationContext());
+
         //Work out total cost of the basket and the total contents
-        int totalItems = 0;
-        double totalCost = 0;
-        for(int i = 0; i < basketItemList.size(); i++){
+
+        for (int i = 0; i < basketItemList.size(); i++) {
 
             totalItems = totalItems + basketItemList.get(i).getItemQuantity();
             totalCost = totalCost + basketItemList.get(i).getItemTotalCost();
-
         }
 
         totalCost = (double) Math.round(totalCost * 100) / 100;
 
         textBasketQuantity = (TextView) findViewById(R.id.text_basket_no_of_items);
-
-        if(totalItems > 0) {
+        if (totalItems > 0) {
             textBasketQuantity.setText("Order total (" + totalItems + " items)");
-        }
-        else{
+        } else {
             textBasketQuantity.setText("Your basket is empty");
         }
 
         textBasketTotalCost = (TextView) findViewById(R.id.text_basket_total_cost);
+        textReciptTotalCost = (TextView) findViewById(R.id.text_receipt_total_cost);
 
         DecimalFormat decimalFormat = new DecimalFormat();
         decimalFormat.setMinimumFractionDigits(2);
-        textBasketTotalCost.setText("£"+decimalFormat.format(totalCost));
+        textBasketTotalCost.setText("£" + decimalFormat.format(totalCost));
+        textReciptTotalCost.setText("£" + decimalFormat.format(totalCost));
 
-        if(!basketItemList.isEmpty()) {
+        buttonPlaceOrder = (Button) findViewById(R.id.button_place_order);
+        buttonPlaceOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PlaceOrderTask placeOrderTask = new PlaceOrderTask();
+                placeOrderTask.execute();
+            }
+        });
+
+
+        //Table layout..
+        //Display if the basket isn't empty
+        if (!basketItemList.isEmpty()) {
+
             table = (TableLayout) findViewById(R.id.main_table);
-            for (int i = 0; i <basketItemList.size(); i++) {
+
+            //Programatically define the table layout and rows.
+            for (int i = 0; i < basketItemList.size(); i++) {
 
                 TableRow tableRow = new TableRow(this);
-                tableRow.setPadding(0,4,0,4);
+                tableRow.setPadding(0, 4, 0, 4);
 
-                TableRow.LayoutParams param = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                //Table row params with a gravity of 1, fills the row. Passed to the linearLayout
+                TableRow.LayoutParams params = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
 
-
+                //Create two new textViews to hold the text
                 TextView text = new TextView(this);
                 TextView text2 = new TextView(this);
 
-               LinearLayout linearLayout = new LinearLayout(this);
+                //Linear layout to hold the textViews
+                LinearLayout linearLayout = new LinearLayout(this);
 
-                linearLayout.setLayoutParams(param);
+                linearLayout.setLayoutParams(params);
                 linearLayout.setWeightSum(2f);
                 linearLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                //Linear layout params that are passed to the textViews.
+                LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT, 0.5f);
 
                 LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT, 1.5f);
 
-                params.gravity = Gravity.RIGHT;
+                params1.gravity = Gravity.RIGHT;
 
-
-
-                text.setLayoutParams(params);
+                text.setLayoutParams(params1);
                 text2.setLayoutParams(params2);
 
-
-
                 //If the items quantity is greater than 1 then show the quantity to the user
-                if(basketItemList.get(i).getItemQuantity() > 1){
-                    text.setText(basketItemList.get(i).getItemName()+" x ["+basketItemList.get(i).getItemQuantity()+"]");
-                }
-                else {
+                if (basketItemList.get(i).getItemQuantity() > 1) {
+                    text.setText(basketItemList.get(i).getItemName() + " x [" + basketItemList.get(i).getItemQuantity() + "]");
+                } else {
                     text.setText(basketItemList.get(i).getItemName());
                 }
-
-                //text.setPadding(0, 0, 96, 0);
 
                 text2.setText(decimalFormat.format(basketItemList.get(i).getItemTotalCost()));
                 text2.setGravity(Gravity.RIGHT);
 
-
                 linearLayout.addView(text);
                 linearLayout.addView(text2);
-
                 tableRow.addView(linearLayout);
 
                 table.addView(tableRow);
             }
         }
+        else{
+            RelativeLayout mainTable = (RelativeLayout) findViewById(R.id.table_contents_holder);
+            mainTable.setVisibility(View.GONE);
+        }
+    }
+
+    private class PlaceOrderTask extends AsyncTask<Void, Void, JSONObject> {
+
+        Gson gson = new Gson();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            //Display progress dialogue on this screen
+            progressDialog = new ProgressDialog(BasketActivity.this);
+            progressDialog.setMessage("Placing order...");
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(true);
+            progressDialog.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(Void... voids) {
+
+            //Get the httpPost parameters
+            //Serialize the basket contents into a JSON string to store in the database
+            String basketJson = gson.toJson(basketItemList);
+            String userName = sessionManager.getUserName();
+            int tableNumber = sessionManager.getTableNum();
+
+            String url = sessionManager.getServerIp() + ADD_ORDER_URL;
+
+            //Associative array containing the parameters to pass to the query:
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("customer_id", userName));
+            params.add(new BasicNameValuePair("items_info", basketJson));
+            params.add(new BasicNameValuePair("order_total", String.valueOf(totalCost)));
+            params.add(new BasicNameValuePair("table_number", String.valueOf(tableNumber)));
 
 
+            return jsonParser.makeHttpRequest(url, HttpPost.METHOD_NAME, params);
+        }
+
+        @Override
+
+        protected void onPostExecute(JSONObject jsonResponse) {
+            super.onPostExecute(jsonResponse);
+
+            progressDialog.cancel();
+
+            if (jsonResponse != null) {
+                //Data has been retrieved
+                try {
+
+                    int successCode = jsonResponse.getInt(TAG_SUCCESS);
+                    String message = jsonResponse.getString(TAG_MESSAGE);
+
+                    if (successCode == 1) {
+
+                        //Order has been successful
+                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+
+
+                        //Navigate to payment screen next. Which will open a paypal intent
+                        Intent intent = new Intent(getApplicationContext(), CheckoutActivity.class);
+
+                        //Add flags to the intent to remove the menu from the back stack
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                |Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        //Set the session to order being placed.
+                        sessionManager.setOrderPlaced(true);
+                        basketDataSource.emptyBasket();
+
+                        startActivity(intent);
+
+                    }
+                    else {
+                        //Unsuccessful order
+                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                //No data has been returned.
+                Toast.makeText(getApplicationContext(),
+                        "Connection error. Make sure you have an active network connection and then try again",
+                        Toast.LENGTH_LONG).show();
+            }
+
+
+        }
 
     }
 
