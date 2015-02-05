@@ -11,6 +11,8 @@ public class StaticVariables {
     private static final String PREF_USER_NAME = "username";
     private static final String PREF_LOGIN_STATUS = "isLoggedIn";
     private static final String PREF_ORDER_STATUS = "orderPlaced";
+    private static final String PREF_ORDER_TOTAL = "orderTotal";
+
 
     private static final String PREF_RESTAURANT_ID = "restaurant_id";
     private static final String PREF_RESTAURANT_NAME = "restaurant_name";
@@ -38,6 +40,9 @@ public class StaticVariables {
         return PREF_LOGIN_STATUS;
     }
 
+    public static String getPrefOrderTotal() {
+        return PREF_ORDER_TOTAL;
+    }
 
     //==Check in session:==
     public static String getPrefRestaurantId() {
@@ -75,6 +80,8 @@ public class StaticVariables {
     public static String getPrefOrderStatus() {
         return PREF_ORDER_STATUS;
     }
+
+
 
     //==System preferences:==
     public static String getPrefIp() {

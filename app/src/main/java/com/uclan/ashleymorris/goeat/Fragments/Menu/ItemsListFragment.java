@@ -265,7 +265,9 @@ public class ItemsListFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        //Refresh the listview if the data was changed in the 2nd activity
+        //Refresh the listView if the data was changed in the 2nd activity.
+        //Th request code is the identifier for the request. Allows multiple requests to be handled
+        //by onActivityResult
         if(requestCode == 1){
             if(resultCode == Activity.RESULT_OK){
 

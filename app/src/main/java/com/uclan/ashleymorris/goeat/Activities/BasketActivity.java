@@ -63,15 +63,20 @@ public class BasketActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basket);
 
+
         basketDataSource = new BasketDataSource(getApplicationContext());
         basketDataSource.open();
 
+        /*
+         * Get the basket contents and store them in an object
+         * so that it is easier to work with.
+         */
         basketItemList = basketDataSource.getBasketContents();
 
         sessionManager = new SessionManager(getApplicationContext());
 
-        //Work out total cost of the basket and the total contents
 
+        //Work out total cost of the basket and the total contents
         for (int i = 0; i < basketItemList.size(); i++) {
 
             totalItems = totalItems + basketItemList.get(i).getItemQuantity();
@@ -80,6 +85,7 @@ public class BasketActivity extends Activity {
 
         totalCost = (double) Math.round(totalCost * 100) / 100;
 
+        //Update the UI
         textBasketQuantity = (TextView) findViewById(R.id.text_basket_no_of_items);
         if (totalItems > 0) {
             textBasketQuantity.setText("Order total (" + totalItems + " items)");
@@ -90,6 +96,8 @@ public class BasketActivity extends Activity {
         textBasketTotalCost = (TextView) findViewById(R.id.text_basket_total_cost);
         textReciptTotalCost = (TextView) findViewById(R.id.text_receipt_total_cost);
 
+
+        //Use decimal format to set the double to 2 decimal places
         DecimalFormat decimalFormat = new DecimalFormat();
         decimalFormat.setMinimumFractionDigits(2);
         textBasketTotalCost.setText("£" + decimalFormat.format(totalCost));
@@ -162,6 +170,8 @@ public class BasketActivity extends Activity {
             }
         }
         else{
+            /*
+             * And if the table is empty then simply make the view containing the table disappear           */
             RelativeLayout mainTable = (RelativeLayout) findViewById(R.id.table_contents_holder);
             mainTable.setVisibility(View.GONE);
         }
@@ -232,8 +242,12 @@ public class BasketActivity extends Activity {
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 |Intent.FLAG_ACTIVITY_NEW_TASK);
 
+
                         //Set the session to order being placed.
+                        //Saves the total to shared preferences
+                        //Clears the basket database.
                         sessionManager.setOrderPlaced(true);
+                        sessionManager.setOrderTotal(totalCost);
                         basketDataSource.emptyBasket();
 
                         startActivity(intent);
@@ -254,8 +268,6 @@ public class BasketActivity extends Activity {
                         "Connection error. Make sure you have an active network connection and then try again",
                         Toast.LENGTH_LONG).show();
             }
-
-
         }
 
     }

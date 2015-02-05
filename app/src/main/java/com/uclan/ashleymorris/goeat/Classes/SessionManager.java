@@ -67,11 +67,11 @@ public class SessionManager {
         editor.commit();
     }
 
+
     /**
      *
      * Sets a boolean to true indicating that the customer has placed an order that is waiting to
      * be fulfilled.
-     *
      */
     public void setOrderPlaced(boolean orderPlaced){
         editor.putBoolean(StaticVariables.getPrefOrderStatus(), orderPlaced);
@@ -79,9 +79,46 @@ public class SessionManager {
     }
 
 
+    /**
+     *
+     * @return A boolean representing whether the user has placed an order
+     */
     public boolean orderIsPlaced(){
         return this.sharedPreferences.getBoolean(StaticVariables.getPrefOrderStatus(), false);
     }
+
+
+    /**
+     * As shared preferences isn't able to take doubles, and casting to a
+     * float could cause major problems. Parsing the double to a string and saving that.
+     * Not the most elegant solution to the situation, but probably the easiest. And the double
+     * values shouldn't be too large.
+     *
+     * @param orderTotal
+     */
+    public void setOrderTotal(double orderTotal){
+        String total = String.valueOf(orderTotal);
+        editor.putString(StaticVariables.getPrefOrderTotal(), total);
+        editor.commit();
+    }
+
+    /**
+     * Gets the double that is stored as a string for easy and more efficient use in textViews.
+     *
+     * @return
+     */
+    public String getOrderTotalString(){
+        return sharedPreferences.getString(StaticVariables.getPrefOrderTotal(), "");
+    }
+
+
+    public double getOrderTotal(){
+        String total = sharedPreferences.getString(StaticVariables.getPrefOrderTotal(), "");
+        double orderTotal = Double.parseDouble(total);
+
+        return orderTotal;
+    }
+
 
     /**
      * @return A boolean representing whether the user has checked into a restaurant or not.
@@ -100,7 +137,31 @@ public class SessionManager {
     }
 
 
-    ///Restaurant details----
+    public void checkOutUser() {
+        editor.remove(StaticVariables.getPrefCheckinStatus());
+        editor.remove(StaticVariables.getPrefTableNumber());
+        editor.remove(StaticVariables.getPrefRestaurantId());
+        editor.remove(StaticVariables.getPrefRestaurantName());
+
+        editor.remove(StaticVariables.getPrefPhoneno());
+        editor.remove(StaticVariables.getPrefOpentime());
+        editor.remove(StaticVariables.getPrefClosetime());
+
+        editor.commit();
+    }
+
+    public void logOutUser() {
+        editor.clear();
+        editor.commit();
+    }
+
+
+
+    /*
+     *
+     * Getters for the Restaurant details----
+     *
+     */
     public String getUserName() {
         return this.sharedPreferences.getString(StaticVariables.getPrefUserName(), null);
     }
@@ -113,9 +174,9 @@ public class SessionManager {
         return this.sharedPreferences.getString(StaticVariables.getPrefOpentime(), null);
     }
 
-     public String getCloseTime(){
-         return this.sharedPreferences.getString(StaticVariables.getPrefClosetime(), null);
-     }
+    public String getCloseTime(){
+        return this.sharedPreferences.getString(StaticVariables.getPrefClosetime(), null);
+    }
 
     public String getPhoneNo(){
         return this.sharedPreferences.getString(StaticVariables.getPrefPhoneno(), null);
@@ -130,28 +191,10 @@ public class SessionManager {
     }
 
 
-    public void checkOutUser() {
-        editor.remove(StaticVariables.getPrefCheckinStatus());
-        editor.remove(StaticVariables.getPrefTableNumber());
-        editor.remove(StaticVariables.getPrefRestaurantId());
-        editor.remove(StaticVariables.getPrefRestaurantName());
-
-        editor.remove(StaticVariables.getPrefPhoneno());
-        editor.remove(StaticVariables.getPrefOpentime());
-        editor.remove(StaticVariables.getPrefClosetime());
-
-        editor.commit();
-    }
-
-
-    public void logOutUser() {
-        editor.clear();
-        editor.commit();
-    }
-
-
-    /**
+    /*
+     *
      * System preferences:
+     *
      */
     public void setServerIp(String ipAddress) {
         editor.putString(StaticVariables.getPrefIp(),"http://"+ipAddress);
