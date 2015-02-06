@@ -1,5 +1,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.uclan.ashleymorris.goeat.Activities.CheckoutActivity" >
+    tools:context="com.uclan.ashleymorris.goeat.activities.CheckoutActivity" >
 
 </menu>

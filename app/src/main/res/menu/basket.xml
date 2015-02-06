@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.uclan.ashleymorris.goeat.Activities.BasketActivity" >
+    tools:context="com.uclan.ashleymorris.goeat.activities.BasketActivity" >
 
     <item android:id="@+id/empty_basket"
           android:title="Empty basket"

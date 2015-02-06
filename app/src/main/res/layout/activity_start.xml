@@ -16,7 +16,8 @@
         android:layout_alignParentBottom="true"
         android:gravity="bottom"
         android:weightSum="1"
-        android:id="@+id/linearLayout">
+        android:id="@+id/linearLayout"
+        >
 
         <LinearLayout
             android:orientation="horizontal"
@@ -37,7 +38,8 @@
                 android:layout_weight="0.50"
                 android:background="@drawable/cancel_button2"
                 android:layout_marginRight="4dp"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                />
 
             <Button
                 android:layout_width="wrap_content"

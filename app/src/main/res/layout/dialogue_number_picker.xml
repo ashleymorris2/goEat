@@ -3,7 +3,7 @@
 
 
                 android:layout_height="wrap_content"
-                tools:context="com.uclan.ashleymorris.goeat.Activities.NumberPickerDialogue"
+                tools:context="com.uclan.ashleymorris.goeat.activities.NumberPickerDialogue"
                 android:id="@+id/linearLayout"
                 android:descendantFocusability="beforeDescendants"
                 android:focusableInTouchMode="true"

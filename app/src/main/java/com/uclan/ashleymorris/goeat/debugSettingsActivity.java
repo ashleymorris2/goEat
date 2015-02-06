@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.uclan.ashleymorris.goeat.Classes.SessionManager;
+import com.uclan.ashleymorris.goeat.classes.SessionManager;
 
 //This activity is for debug and testing purposes only. It allows the server ip address that the app uses to be
 //changed.

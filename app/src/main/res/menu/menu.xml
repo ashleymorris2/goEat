@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.uclan.ashleymorris.goeat.Activities.MenuActivity" >
+    tools:context="com.uclan.ashleymorris.goeat.activities.MenuActivity" >
 
     <item android:id="@+id/action_goto_basket"
           android:icon="@drawable/action_shopping_basket_icon"

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.uclan.ashleymorris.goeat.Activities.BasketActivity"
+    tools:context="com.uclan.ashleymorris.goeat.activities.BasketActivity"
     android:background="@color/MainBackground">
 
     <RelativeLayout
