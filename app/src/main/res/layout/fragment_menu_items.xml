@@ -36,7 +36,8 @@
             android:text="Burgers and Steaks"
             android:id="@+id/text_category"
             android:textColor="@color/BackgroundBlue"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textSize="18sp"/>
 
         <View
             android:layout_width="match_parent"
