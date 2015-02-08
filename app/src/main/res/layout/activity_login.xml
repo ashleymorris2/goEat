@@ -89,7 +89,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView"
+            android:id="@+id/imageView_restaurant"
             android:src="@drawable/goeat_logo1"
             android:layout_above="@+id/linearLayout"
             android:layout_alignParentEnd="true"

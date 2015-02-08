@@ -82,6 +82,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />
     <orderEntry type="library" exported="" name="PayPalAndroidSDK-2.8.5" level="project" />
+    <orderEntry type="library" exported="" name="picasso-2.5.0" level="project" />
+    <orderEntry type="library" exported="" name="1_picasso-2.5.0" level="project" />
   </component>
 </module>
 

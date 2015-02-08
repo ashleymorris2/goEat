@@ -2,132 +2,172 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.uclan.ashleymorris.goeat.fragments.RestaurantDetailsFragment">
+    tools:context="com.uclan.ashleymorris.goeat.fragments.RestaurantDetailsFragment"
+    android:background="@color/MainBackground">
 
 
     <RelativeLayout
-        tools:context="com.uclan.ashleymorris.goeat.activities.MainActivity"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:background="@color/MainBackground"
-        android:id="@+id/relativeLayout"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="200dp"
+            android:id="@+id/imageView_restaurant"
+            android:layout_alignParentStart="true"
+            />
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            tools:context="com.uclan.ashleymorris.goeat.activities.MainActivity"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/relativeLayout"
             android:layout_alignParentStart="true"
-            android:background="@drawable/card_background"
-            android:padding="12dp">
+            android:layout_below="@+id/imageView_restaurant"
+            >
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="false"
-                android:layout_alignParentStart="false">
+                android:background="#ffffff"
+                android:id="@+id/relativeLayout2"
+                android:layout_alignParentTop="true"
+                android:padding="12dp">
 
-                <TextView
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Benny and Franks"
-                    android:id="@+id/text_restaurant_name"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"
-                    android:textSize="36sp"
+                    android:layout_alignParentEnd="false"
+                    android:layout_alignParentStart="false">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Benny and Franks"
+                        android:id="@+id/text_restaurant_name"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:textSize="36sp"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center_vertical|center"
+                        android:textColor="@color/MainTextColour"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="22 Wardor Street, London, W12 6LU"
+                        android:id="@+id/text_address"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:layout_marginBottom="2dp"
+                        android:textColor="@color/MainTextColour"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Tel: 02085578612"
+                        android:id="@+id/text_phonnumber"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:layout_marginBottom="4dp"
+                        android:singleLine="true"
+                        android:textColor="@color/MainTextColour"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Open: 10:00am"
+                        android:id="@+id/text_opentime"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:textColor="@color/MainTextColour"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Close: 10:00pm"
+                        android:id="@+id/text_closetime"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:textColor="@color/MainTextColour"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:weightSum="1"
+                android:padding="16dp"
+                android:id="@+id/linearLayout"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Checkout"
+                    android:id="@+id/button_checkout"
                     android:layout_alignParentBottom="true"
-                    android:gravity="center_vertical|center" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="22 Wardor Street, London, W12 6LU"
-                    android:id="@+id/text_address"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentStart="true"
-                    android:textSize="16sp"
-                    android:gravity="center"
-                    android:layout_marginBottom="2dp"
-                    android:textColor="@color/MainTextColour"/>
+                    android:layout_weight="0.50"
+                    android:background="@drawable/start_button"
+                    android:layout_marginRight="4dp"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold"/>
 
-                <TextView
+                <Button
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Tel: 02085578612"
-                    android:id="@+id/text_phonnumber"
-                    android:textSize="16sp"
-                    android:gravity="center"
-                    android:layout_marginBottom="4dp"
-                    android:singleLine="true"
-                    android:textColor="@color/MainTextColour"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Open: 10:00am"
-                    android:id="@+id/text_opentime"
-                    android:textSize="14sp"
-                    android:gravity="center"
-                    android:textColor="@color/MainTextColour"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Close: 10:00pm"
-                    android:id="@+id/text_closetime"
-                    android:textSize="14sp"
-                    android:gravity="center"
-                    android:textColor="@color/MainTextColour"/>
-
+                    android:layout_height="48dp"
+                    android:text="Menu"
+                    android:id="@+id/button_viewmenu"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toEndOf="@+id/textbutton_register"
+                    android:layout_weight="0.50"
+                    android:background="@drawable/light_theme_button"
+                    android:textColor="#ffffff"
+                    android:layout_marginLeft="4dp"
+                    android:textStyle="bold"/>
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/card_background"
+                android:id="@+id/relative_table_view"
+                android:layout_below="@+id/relativeLayout2"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Checked in on table 2"
+                    android:id="@+id/textView"
+                    android:layout_centerVertical="true"
+                    android:textSize="16sp"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center_horizontal"
+                    android:layout_alignParentStart="true"
+                    android:textColor="@color/MainTextColour"/>
+            </RelativeLayout>
+
         </RelativeLayout>
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:weightSum="1"
-        android:padding="16dp"
-        android:id="@+id/linearLayout"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Checkout"
-            android:id="@+id/button_checkout"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_weight="0.50"
-            android:background="@drawable/start_button"
-            android:layout_marginRight="4dp"
-            android:textColor="#ffffff"
-            android:textStyle="bold"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Menu"
-            android:id="@+id/button_viewmenu"
-            android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@+id/textbutton_register"
-            android:layout_weight="0.50"
-            android:background="@drawable/light_theme_button"
-            android:textColor="#ffffff"
-            android:layout_marginLeft="4dp"
-            android:textStyle="bold"/>
-    </LinearLayout>
 </RelativeLayout>

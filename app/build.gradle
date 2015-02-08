@@ -24,4 +24,5 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/gson-2.3.1.jar')
     compile files('libs/PayPalAndroidSDK-2.8.5.jar')
+    compile files('picasso-2.5.0.jar')
 }
