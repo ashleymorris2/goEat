@@ -62,7 +62,7 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="90dp"
         android:id="@+id/imageView_restaurant"
         android:src="@drawable/go_eat_backgrond"
         android:scaleType="fitXY"
@@ -80,7 +80,7 @@
         android:gravity="center_horizontal"
         android:textStyle="bold"
         android:textColor="@color/BackgroundBlue"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:layout_below="@+id/imageView_restaurant"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"/>

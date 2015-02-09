@@ -42,11 +42,9 @@
             android:name=".activities.MainActivity"
             android:label="@string/title_activity_main">
         </activity>
-        <activity
 
-            android:name=".activities.LoginRegisterActivity"
-            android:label="@string/title_activity_login_register">
-        </activity>
+        <receiver android:name=".notifications.RecurringPollServerReciever"
+                  android:enabled="true"></receiver>
 
         <activity
             android:name=".activities.MenuActivity"
