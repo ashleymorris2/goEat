@@ -31,10 +31,13 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
+                android:background="@drawable/card_background"
                 android:id="@+id/relativeLayout2"
                 android:layout_alignParentTop="true"
-                android:padding="12dp">
+                android:padding="12dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -126,7 +129,8 @@
                     android:background="@drawable/start_button"
                     android:layout_marginRight="4dp"
                     android:textColor="#ffffff"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
 
                 <Button
                     android:layout_width="match_parent"
@@ -139,7 +143,8 @@
                     android:background="@drawable/light_theme_button"
                     android:textColor="#ffffff"
                     android:layout_marginLeft="4dp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
             </LinearLayout>
 
             <RelativeLayout
@@ -149,15 +154,16 @@
                 android:id="@+id/relative_table_view"
                 android:layout_below="@+id/relativeLayout2"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp">
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Checked in on table 2"
-                    android:id="@+id/textView"
+                    android:id="@+id/text_table_checked_in"
                     android:layout_centerVertical="true"
                     android:textSize="16sp"
                     android:layout_alignParentEnd="true"

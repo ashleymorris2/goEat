@@ -16,4 +16,14 @@
     <string name="title_activity_basket">Basket</string>
     <string name="title_activity_payment_sumary">Payment Sumary</string>
 
+    <string name="navdrawer_open">Open drawer</string>
+    <string name="navdrawer_close">Close drawer</string>
+
+    <string-array name="array_menu">
+        <item>Home</item>
+        <item>Orders</item>
+        <item>Settings</item>
+        <item>Log Out</item>
+    </string-array>
+
 </resources>

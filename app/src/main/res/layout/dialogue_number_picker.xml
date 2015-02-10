@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Total:"
-            android:id="@+id/textView"
+            android:id="@+id/text_table_checked_in"
             android:textColor="@color/MainTextColour"
             android:textSize="18sp"
             />
