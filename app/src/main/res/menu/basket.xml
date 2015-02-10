@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.uclan.ashleymorris.goeat.activities.BasketActivity" >
 
-    <item android:id="@+id/empty_basket"
+    <item android:id="@+id/action_empty_basket"
           android:title="Empty basket"
           android:orderInCategory="100"
           android:showAsAction="never" />

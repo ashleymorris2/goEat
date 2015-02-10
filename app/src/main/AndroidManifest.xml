@@ -43,8 +43,8 @@
             android:label="@string/title_activity_main">
         </activity>
 
-        <receiver android:name=".notifications.RecurringPollServerReciever"
-                  android:enabled="true"></receiver>
+        <service android:name=".notifications.RecurringPollServerService"
+                  android:enabled="true"></service>
 
         <activity
             android:name=".activities.MenuActivity"
