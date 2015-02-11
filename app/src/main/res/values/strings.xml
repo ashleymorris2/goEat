@@ -15,7 +15,6 @@
     <string name="title_activity_number_picker_dialogue">Quantity</string>
     <string name="title_activity_basket">Basket</string>
     <string name="title_activity_payment_sumary">Payment Sumary</string>
-
     <string name="navdrawer_open">Open drawer</string>
     <string name="navdrawer_close">Close drawer</string>
 
@@ -25,5 +24,7 @@
         <item>Settings</item>
         <item>Log Out</item>
     </string-array>
+
+    <string name="title_activity_order_detail">Order</string>
 
 </resources>

@@ -1,0 +1,186 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/MainBackground"
+            tools:context="com.uclan.ashleymorris.goeat.activities.OrderDetailActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp">
+
+        <LinearLayout
+            android:id="@+id/linear_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_below="@+id/text_detail_order_date"
+            android:layout_alignParentEnd="true">
+
+            <TextView
+                android:id="@+id/text_detail_total_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="£45.45"
+                android:textColor="@color/MainTextColour"
+                android:textSize="14sp"
+                android:gravity="left"/>
+
+            <TextView
+                android:id="@+id/text_detail_no_of_items"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="(2 items)"
+                android:textColor="@android:color/tertiary_text_dark"
+                android:textSize="12sp"
+                android:layout_marginLeft="2dp"
+                android:gravity="left"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/table_contents_holder"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="38dp"
+            android:background="@drawable/card_background"
+            android:paddingBottom="16dp"
+            android:layout_below="@+id/linear_layout"
+            android:layout_alignParentStart="true">
+
+
+            <TextView
+                android:id="@+id/text_label_order_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight=".5"
+                android:text="Order details"
+                android:textColor="@color/MainTextColour"
+                android:textIsSelectable="false"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/text_label_order_details"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/BackgroundBlue"/>
+
+            <TableLayout
+                android:id="@+id/main_table"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/view"
+                android:layout_alignParentEnd="false"
+                android:layout_alignParentStart="false"
+                android:layout_alignStart="@+id/view"
+                android:layout_below="@+id/view"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp">
+            </TableLayout>
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/main_table"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/BackgroundBlue"/>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/view2"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:longClickable="false"
+                android:measureWithLargestChild="false"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/text_label_total"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:text="Total:"
+                    android:textStyle="bold"
+                    android:textColor="@color/MainTextColour"/>
+
+                <TextView
+                    android:id="@+id/text_detail_total"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:gravity="right"
+                    android:text="£15.45"
+                    android:textColor="@color/MainTextColour"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#45667"
+                android:id="@+id/text_detail_num"
+                android:layout_above="@+id/view"
+                android:layout_alignEnd="@+id/view"
+                android:textColor="@android:color/tertiary_text_dark"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="10-Feb-2015 at 22:30 "
+            android:id="@+id/text_detail_order_date"
+            android:textSize="14sp"
+            android:layout_below="@+id/text_detail_restaurant_name"
+            android:layout_alignParentStart="true"
+            android:textColor="@color/MainTextColour"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Benny and Franks"
+            android:id="@+id/text_detail_restaurant_name"
+            android:textIsSelectable="false"
+            android:textSize="24sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:textColor="@color/MainTextColour"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Complete"
+            android:id="@+id/text_detail_status"
+            android:layout_below="@+id/linear_layout"
+            android:layout_alignParentStart="true"
+            android:textColor="@color/BackgroundBlue"
+            android:layout_marginTop="8dp"/>
+
+    </RelativeLayout>
+</ScrollView>
