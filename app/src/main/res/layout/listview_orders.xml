@@ -25,7 +25,7 @@
             android:text="Pizza Place"
             android:id="@+id/order_text_restaurant"
             android:textSize="22sp"
-            android:textColor="#ff000000"
+            android:textColor="@color/MainTextColour"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:textStyle="bold"
