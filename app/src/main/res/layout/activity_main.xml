@@ -15,10 +15,10 @@
 
     <ListView
         android:layout_width="240dp"
-        android:background="#ffffff"
+        android:background="@color/MainTextColour"
         android:id="@+id/drawerList"
         android:layout_gravity="start"
         android:layout_height="match_parent"
-        android:divider="@null"/>
+        android:divider="@color/MainBackground"/>
 
 </android.support.v4.widget.DrawerLayout>

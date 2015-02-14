@@ -42,7 +42,9 @@
                 android:background="@drawable/rounded_textview"
                 android:paddingLeft="12dp"
                 android:paddingRight="8dp"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="12dp"
+                android:maxLength="32"
+                android:maxLines="1"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -57,7 +59,8 @@
                 android:hint="Password"
                 android:background="@drawable/rounded_textview"
                 android:paddingLeft="12dp"
-                android:paddingRight="8dp" />
+                android:paddingRight="8dp"
+                android:maxLength="32"/>
 
             <Button
                 android:layout_width="fill_parent"
