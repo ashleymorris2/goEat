@@ -115,6 +115,7 @@ public class RecurringPollServerService extends Service {
                             if(statusCode == 5){
                                 //The order is now complete, can clear it from the system.
                                 sessionManager.setOrderPlaced(false);
+
                             }
 
                         }
